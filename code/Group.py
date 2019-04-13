@@ -2,9 +2,9 @@ import User
 
 
 class Group:
-    def __init__(self, name, id, members):
+    def __init__(self, name, groupid, members):
         self.name = name
-        self.id = id
+        self.groupid = groupid
         self.members = members
 
     def addMember(self, user: User):

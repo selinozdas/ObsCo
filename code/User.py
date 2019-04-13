@@ -1,4 +1,5 @@
-import Accountant
+import Accountant, Group
+from Variables import GROUP_EDIT
 
 
 class User:
@@ -14,10 +15,13 @@ class User:
         self.title = title
         self.rank = rank
 
+    groups = []
+
     def getSubordinateInfo(self, userId:int, name:str):
         return
 
     def pushForm(self, formId:int, group:int):
+        #send a form to fill to all group members
         return
 
     def fillForm(self, formType:int):
@@ -32,14 +36,21 @@ class User:
     def showGroup(self, group:int):
         return
 
-    def createGroup(self, name:str, users:list):
-        return
+    def createGroup(self, name:str, groupid:int, users:list):
+        if self.rank < GROUP_EDIT:
+            return 0
+        group = Group(name, groupid, users)
+        self.groups.append(group)
+        return 1
 
     def changeProfileInfo(self, changeRequestReceiver:Accountant):
         return
 
-    def deleteGroup(self, name:str, group:int):
-        return
+    def deleteGroup(self, group:Group):
+        if self.rank < GROUP_EDIT:
+            return 0
+        self.groups.remove(group)
+        return 1
 
     def showUserData(self, name:str, id:int):
         return
