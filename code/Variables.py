@@ -1,1 +1,1 @@
-GROUP_EDIT = 2
+GROUP_EDIT: int = 2

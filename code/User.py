@@ -15,8 +15,6 @@ class User:
         self.title = title
         self.rank = rank
 
-    groups = []
-
     def getSubordinateInfo(self, userId:int, name:str):
         return
 

@@ -7,14 +7,23 @@ class Group:
         self.groupid = groupid
         self.members = members
 
+    members = []
+
     def addMember(self, user: User):
-        self.members.append(user)
+        if user in self.members:
+            self.members.append(user)
+            return 0
+        else:
+            return -1
 
     def deleteMember(self, user: User):
         self.members.remove(user)
 
     def viewMember(self, user: User):
-        return
+        if user in self.members:
+            return user
+        else:
+            return -1
 
     def viewGroup(self, user: User):
         return
