@@ -82,7 +82,7 @@ def get_user(user_id):
     user = [user for user in users if user['id'] == user_id]
     if len(user) == 0:
         abort(404)
-    return jsonify({'task': user[0]})
+    return jsonify({'user': user[0]})
 
 @app.errorhandler(404)
 def not_found(error):
