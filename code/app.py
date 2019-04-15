@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, abort, make_response, request
 #import Accountant, Analyzer, DBManager, Group, ObsCoManager, User, Variables
 
 app = Flask(__name__)
@@ -71,11 +71,22 @@ users = [
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return 'ObsCo initialized'
 
 @app.route('/obsco/api/v1.0/users', methods=['GET'])
 def get_tasks():
     return jsonify({'users': users})
+
+@app.route('/obsco/api/v1.0/users/<int:user_id>', methods=['GET'])
+def get_task(user_id):
+    user = [user for user in users if user['id'] == user_id]
+    if len(user) == 0:
+        abort(404)
+    return jsonify({'task': user[0]})
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 if __name__ == '__main__':
     app.run()
