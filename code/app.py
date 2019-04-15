@@ -74,11 +74,11 @@ def hello_world():
     return 'ObsCo initialized'
 
 @app.route('/obsco/api/v1.0/users', methods=['GET'])
-def get_tasks():
+def get_users():
     return jsonify({'users': users})
 
 @app.route('/obsco/api/v1.0/users/<int:user_id>', methods=['GET'])
-def get_task(user_id):
+def get_user(user_id):
     user = [user for user in users if user['id'] == user_id]
     if len(user) == 0:
         abort(404)
