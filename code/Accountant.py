@@ -1,7 +1,7 @@
 import User
 
 
-class Accountant(User):
+class Accountant():
 
     def __init__(self):
         self.requests = []  # creates an empty list for each accountant
