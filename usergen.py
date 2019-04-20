@@ -1,6 +1,7 @@
 from pymongo import MongoClient
-
-client = MongoClient()
+#change url
+mongo_url = 'mongodb://127.0.0.1:29618/'
+client = MongoClient(mongo_url)
 
 db = client["obsco"]
 
