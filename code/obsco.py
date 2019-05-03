@@ -7,85 +7,6 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/obsco"
 mongo = PyMongo(app)
 
-users = [
-    {
-        'name': u'Jason Statham',
-        'id': 12345671,
-        'groups': [1,2,3,4],
-        'email': u'statham@hollywood.com',
-        'password': u'cokguclusifre',
-        'age': 45,
-        'superuser': True,
-        'title': u'Chairman',
-        'skills': [{
-             "id": 1,
-             "value": 10
-            },
-            {
-             "id": 4,
-             "value": 8
-            },
-            {
-             "id": 8,
-             "value": 10
-            },
-            {
-             "id": 6,
-             "value": 6
-            },
-            {
-             "id": 13,
-             "value": 10
-            }
-        ],
-    },
-    {
-        'name': u'Eminem',
-        'id': 12345672,
-        'groups': [2,3],
-        'email': u'eminem@hollywood.com',
-        'password': u'musedinliyorum',
-        'age': 45,
-        'superuser': False,
-        'title': u'Instructor',
-        'skills': [{
-             "id": 4,
-             "value": 10
-            },
-            {
-             "id": 5,
-             "value": 10
-            },
-            {
-             "id": 8,
-             "value": 7
-            },
-            {
-             "id": 9,
-             "value": 8
-            },
-            {
-             "id": 10,
-             "value": 7
-            }
-        ],
-        'done': False
-    }
-]
-
-groups = [
-    {
-            "id":1,
-            "name":"Instructors",
-            "members":[12345671,12345672,12345673]
-    },
-    {
-            "id":2,
-            "name":"Orchestrion",
-            "members":[21400527,21400528,21400529,21400530,21400531]
-    }
-]
-
 #man = DBManager()
 #val = man.fetchUser(userId=12345671)
 
@@ -93,23 +14,91 @@ groups = [
 def hello_world():
     return 'ObsCo initialized'
 
-@app.route('/obsco/api/v1.0/users', methods=['GET'])
-def get_users():
-    return jsonify({'users': users})
+@app.route('/obsco/api/v1.0/users/<int:userId>', methods=['GET'])
+def get_user(name = '', userId = -1):
+    users = mongo.db.users
+    results = []
+        
+    #No query for invalid calls
+    if (name == "" and userId == -1):
+           raise Exception("You need to enter the name or the ID of the user.")
+       
+       #function call with userId
+    elif (userId != -1) :
+        for entry in users.find({},{'_id':0}):
+            if (int(entry["id"]) == int(userId)):
+                results.append(entry) 
 
-@app.route('/obsco/api/v1.0/users/<int:user_id>', methods=['GET'])
-def get_user(user_id):
-    user = [user for user in users if user['id'] == user_id]
-    if len(user) == 0:
-        abort(404)
-    return jsonify({'user': user[0]})
+        #function call with only name
+    elif (str(name) != "") :
+        split_name = "".join(name.split())
+        split_name = split_name.lower()
+        for entry in users.find({},{'_id':0}):
+            temp_entry = entry["name"].lower()
+            temp_entry = "".join(temp_entry.split())
+            if (split_name in temp_entry):
+                results.append(entry)
+    if (len(results)==0):
+        raise Exception("No user has been found with the given credentials.")
+    return jsonify({'users': results})
 
-@app.route('/obsco/api/v1.0/groups', methods=['GET'])
-def get_groups():
-    return jsonify({'groups': groups})
+@app.route('/obsco/api/v1.0/groups/<int:group>', methods=['GET'])
+def get_group(group, name="")->list:
+    """
+        Lists the users in the group.
+        
+        Keyword Arguments:
+        group -- unique id of the group (non-optional)
+        name -- name of the group for search queries (default "")
+        
+        Return Value:
+        user_list -- list of users in the group 
+    """
+    groups = mongo.db.groups.find({'id':group},{'_id':0})
+    g = [x for x in groups]
+    userID_list = g[0]['members']
+    user_list = []
+    if len(userID_list) != 0:
+        for entry in userID_list:
+            curs_user = mongo.db.users.find({'id':entry},{'_id':0})
+            user = [i for i in curs_user]
+            user_list = user_list + user
+    return jsonify({'groups': user_list})
 
+@app.route('/obsco/api/v1.0/skills/<int:userId>', methods=['GET'])
+def get_skill(userId, skill = -1)->list:
+    """
+        Finds the specified skill information of a user, if it is not entered returns all skills of the user.
+        
+        Keyword Arguments:
+        userId -- unique id of the user (non-optional)
+        skill -- unique id of the skill (default -1)
+        
+        Return Value:
+        skill_temp -- skill information if skill id is given else all skills of the given user 
+    """
+    #fetch user
+    try:
+        curs_user = mongo.db.users.find({'id':userId},{'_id':0})
+        user = [i for i in curs_user]
+    except:
+        user = []
+    if (len(user) != 0):
+        skills = user[0]['skills']
+        skill_temp = -1
+        for entry in skills:
+            if(skill == entry["id"]):
+                skill_temp = entry
+                if (skill_temp == -1):
+                    raise Exception("No such skill exist for the given user")
+                else:
+                    jsonify({'skills': skill_temp})
+            else:
+                return jsonify({'skills': skills})
+    
+'''
 @app.route('/obsco/api/v1.0/groups/<int:group_id>', methods=['GET'])
-def get_group(group_id):
+def get_groups(group_id):
     group = [group for group in groups if group['id'] == group_id]
     if len(group) == 0:
         abort(404)
@@ -124,6 +113,6 @@ def get_dbusers():
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
-
+'''
 if __name__ == '__main__':
     app.run()
