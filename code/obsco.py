@@ -23,62 +23,13 @@ def get_user(name = '', userId = -1):
 
 @app.route('/obsco/api/v1.0/groups/<int:group>', methods=['GET'])
 def get_group(group, name="")->list:
-    """
-        Lists the users in the group.
-        
-        Keyword Arguments:
-        group -- unique id of the group (non-optional)
-        name -- name of the group for search queries (default "")
-        
-        Return Value:
-        user_list -- list of users in the group 
-    """
-    groups = mongo.db.groups.find({'id':group},{'_id':0})
-    g = [x for x in groups]
-    userID_list = g[0]['members']
-    user_list = []
-    if len(userID_list) == 0:
-        abort(404)
-    elif len(userID_list) != 0:
-        for entry in userID_list:
-            curs_user = mongo.db.users.find({'id':entry},{'_id':0})
-            user = [i for i in curs_user]
-            user_list = user_list + user
-    return jsonify({'groups': user_list})
+    group_members = man.getGroup(group)
+    return jsonify({'groups': group_members})
 
 @app.route('/obsco/api/v1.0/skills/<int:userId>', methods=['GET'])
 def get_skill(userId, skill = -1)->list:
-    """
-        Finds the specified skill information of a user, if it is not entered returns all skills of the user.
-        
-        Keyword Arguments:
-        userId -- unique id of the user (non-optional)
-        skill -- unique id of the skill (default -1)
-        
-        Return Value:
-        skill_temp -- skill information if skill id is given else all skills of the given user 
-    """
-    #fetch user
-    try:
-        curs_user = mongo.db.users.find({'id':userId},{'_id':0})
-        user = [i for i in curs_user]
-    except:
-        user = []
-    if len(user) == 0:
-        abort(404)
-    elif (len(user) != 0):
-        skills = user[0]['skills']
-        skill_temp = -1
-        for entry in skills:
-            if(skill == entry["id"]):
-                skill_temp = entry
-                if (skill_temp == -1):
-                    abort(404)
-                    #raise Exception("No such skill exist for the given user")
-                else:
-                    jsonify({'skills': skill_temp})
-            else:
-                return jsonify({'skills': skills})
+    skill_list = man.getSkill(userId)
+    return jsonify({'skills': skill_list})
 
 '''
 @app.route('/obsco/api/v1.0/skills/addskill/', methods=['POST', 'GET'])

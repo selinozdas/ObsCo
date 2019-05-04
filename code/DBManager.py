@@ -24,7 +24,7 @@ class DBManager:
 
         # No query for invalid calls
         if (name == "" and userId == -1):
-            raise Exception("You need to enter the name or the ID of the user.")
+            return 'Invalid call to the function'
 
         # function call with userId
         elif (userId != -1):
@@ -43,7 +43,7 @@ class DBManager:
                     results.append(entry)
         # if no result can be found
         if (len(results) == 0):
-            raise Exception("No user has been found with the given credentials.")
+            return "No user has been found with the given credentials."
         return results
 
     # returns the specified skill if entered as parameter, else returns all of the skills that the user with the ID has
@@ -73,7 +73,7 @@ class DBManager:
                         if (skill == entry["id"]):
                             skill_temp = entry
                     if (skill_temp == -1):
-                        raise Exception("No such skill exist for the given user")
+                        return "No such skill exist for the given user"
                     else:
                         return skill_temp
                 else:
@@ -82,7 +82,7 @@ class DBManager:
 
     def getGroup(self, group: int, name="") -> list:
         """
-            Lists the users in the group.
+            Lists the members of the group.
 
             Keyword Arguments:
             group -- unique id of the group (non-optional)
@@ -91,10 +91,11 @@ class DBManager:
             Return Value:
             user_list -- list of users in the group
         """
-        groups = self.mongo.db.groups.find(({'id':group},{'_id':0}))
+        groups = self.mongo.db.groups.find({'id':group},{'_id':0})
         userID_list = []
         user_list = []
         for entry in groups:
+            print(entry['members'])
             if entry["id"] == group:
                 userID_list = userID_list + entry["members"]
         if len(userID_list) != 0:
