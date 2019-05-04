@@ -10,7 +10,26 @@ db.users.insert_many(
     {   "name" : "Halil Altay Guvenir",
         "id": 12345671,
         "groups" : [
-            1,2,3,4
+            {'id':1,
+            'members':1,
+            'owner':1,
+            'leaders':1},
+            {'id':2,
+            'members':0,
+            'owner':0,
+            'leaders':1},
+            {'id':3,
+            'members':0,
+            'owner':1,
+            'leaders':1},
+            {'id':4,
+            'members':0,
+            'owner':0,
+            'leaders':1},
+            {'id':7,
+            'members':0,
+            'owner':1,
+            'leaders':1}
         ],
         "email" : "guvenir@cs.bilkent.edu.tr",
         "password" : "cokguclusifre",
@@ -42,10 +61,21 @@ db.users.insert_many(
     {   "name" : "A. Ercument Cicek",
         "id": 12345672,
         "groups" : [
-            2,3
+            {'id':1,
+            'members':1,
+            'owner':0,
+            'leader':0},
+            {'id':2,
+            'members':0,
+            'owner':1,
+            'leader':1},
+            {'id':7,
+            'members':0,
+            'owner':0,
+            'leader':1}
         ],
         "email" : "cicek@cs.bilkent.edu.tr",
-        "password" : "musedinliyorum",
+        "password": "musedinliyorum",
         "age" : 45,
         "superuser" : False,
         "title" : "Instructor",
@@ -74,7 +104,18 @@ db.users.insert_many(
     {   "name" : "Hamdi Dibeklioglu",
         "id": 12345673,
         "groups" : [
-            3,4
+            {'id':1,
+            'members':1,
+            'owner':0,
+            'leaders':0},
+            {'id':4,
+            'members':0,
+            'owner':1,
+            'leaders':1},
+            {'id':7,
+            'members':0,
+            'owner':0,
+            'leaders':1}
         ],
         "email" : "dibeklioglu@cs.bilkent.edu.tr",
         "password" : "diplernink",
@@ -105,8 +146,19 @@ db.users.insert_many(
     },
     {   "name" : "Selin Ozdas",
         "id": 21400537,
-        "groups" : [
-            5
+       "groups" : [
+            {'id':3,
+            'members':1,
+            'owner':0,
+            'leaders':1},
+            {'id':5,
+            'members':1,
+            'owner':1,
+            'leaders':1},
+            {'id':7,
+            'members':1,
+            'owner':0,
+            'leaders':0}
         ],
         "email" : "selin.ozdas@ug.bilkent.edu.tr",
         "password" : "banaismailde",
@@ -137,8 +189,23 @@ db.users.insert_many(
     },
     {   "name" : "Dogan Can Eren",
         "id": 21400538,
-        "groups" : [
-            5,6
+       "groups" : [
+            {'id':3,
+            'members':1,
+            'owner':0,
+            'leaders':0},
+            {'id':5,
+            'members':1,
+            'owner':0,
+            'leaders':0},
+            {'id':6,
+            'members':1,
+            'owner':1,
+            'leaders':1},
+            {'id':7,
+            'members':1,
+            'owner':0,
+            'leaders':0}
         ],
         "email" : "can.eren@ug.bilkent.edu.tr",
         "password" : "atesim39acikti",
@@ -169,8 +236,19 @@ db.users.insert_many(
     },
     {   "name" : "Ceren Uysal",
         "id": 21400539,
-        "groups" : [
-            
+       "groups" : [
+            {'id':3,
+            'members':1,
+            'owner':0,
+            'leaders':0},
+            {'id':5,
+            'members':1,
+            'owner':0,
+            'leaders':0},
+            {'id':7,
+            'members':1,
+            'owner':0,
+            'leaders':0}
         ],
         "email" : "ceren.uysal@ug.bilkent.edu.tr",
         "password" : "buhayatiseviyorum",
@@ -202,7 +280,18 @@ db.users.insert_many(
     {   "name" : "A. Mahir Ozer",
         "id": 21400540,
         "groups" : [
-            
+            {'id':3,
+            'members':1,
+            'owner':0,
+            'leaders':0},
+            {'id':6,
+            'members':1,
+            'owner':0,
+            'leaders':0},
+            {'id':7,
+            'members':1,
+            'owner':0,
+            'leaders':0}
         ],
         "email" : "mahir.ozer@ug.bilkent.edu.tr",
         "password" : "fotosopbilirim",
@@ -234,7 +323,18 @@ db.users.insert_many(
     {   "name" : "Berk Erzin",
         "id": 21400541,
         "groups" : [
-            
+            {'id':3,
+            'members':1,
+            'owner':0,
+            'leaders':0},
+            {'id':6,
+            'members':1,
+            'owner':0,
+            'leaders':0},
+            {'id':7,
+            'members':1,
+            'owner':0,
+            'leaders':0}
         ],
         "email" : "berk.erzin@ug.bilkent.edu.tr",
         "password" : "orumcekadam",
@@ -263,6 +363,5 @@ db.users.insert_many(
             }
         ]
     }
-
 ]
 )
