@@ -39,7 +39,8 @@ def get_user(name = '', userId = -1):
             if (split_name in temp_entry):
                 results.append(entry)
     if (len(results)==0):
-        raise Exception("No user has been found with the given credentials.")
+        #raise Exception("No user has been found with the given credentials.")
+        abort(404)
     return jsonify({'users': results})
 
 @app.route('/obsco/api/v1.0/groups/<int:group>', methods=['GET'])
@@ -58,7 +59,9 @@ def get_group(group, name="")->list:
     g = [x for x in groups]
     userID_list = g[0]['members']
     user_list = []
-    if len(userID_list) != 0:
+    if len(userID_list) == 0:
+        abort(404)
+    elif len(userID_list) != 0:
         for entry in userID_list:
             curs_user = mongo.db.users.find({'id':entry},{'_id':0})
             user = [i for i in curs_user]
@@ -83,19 +86,31 @@ def get_skill(userId, skill = -1)->list:
         user = [i for i in curs_user]
     except:
         user = []
-    if (len(user) != 0):
+    if len(user) == 0:
+        abort(404)
+    elif (len(user) != 0):
         skills = user[0]['skills']
         skill_temp = -1
         for entry in skills:
             if(skill == entry["id"]):
                 skill_temp = entry
                 if (skill_temp == -1):
-                    raise Exception("No such skill exist for the given user")
+                    abort(404)
+                    #raise Exception("No such skill exist for the given user")
                 else:
                     jsonify({'skills': skill_temp})
             else:
                 return jsonify({'skills': skills})
-    
+
+'''
+@app.route('/obsco/api/v1.0/skills/addskill/', methods=['POST', 'GET'])
+def add_skill():
+    mongo.db.skills.findOne({$query: {}, $orderby: {$natural: -1}} )
+    id = request.args.get('id', None)
+    name = request.args.get('name', None)
+    return jsonify({'id': id}, {'name': name})
+'''
+
 '''
 @app.route('/obsco/api/v1.0/groups/<int:group_id>', methods=['GET'])
 def get_groups(group_id):
@@ -114,5 +129,9 @@ def get_dbusers():
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 '''
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
 if __name__ == '__main__':
     app.run()
