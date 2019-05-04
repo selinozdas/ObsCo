@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 #change url
-mongo_url = 'mongodb://127.0.0.1:29618/'
+mongo_url = 'mongodb://127.0.0.1:29298/'
 client = MongoClient(mongo_url)
 
 db = client["obsco"]
@@ -64,15 +64,15 @@ db.users.insert_many(
             {'id':1,
             'members':1,
             'owner':0,
-            'leader':0},
+            'leaders':0},
             {'id':2,
             'members':0,
             'owner':1,
-            'leader':1},
+            'leaders':1},
             {'id':7,
             'members':0,
             'owner':0,
-            'leader':1}
+            'leaders':1}
         ],
         "email" : "cicek@cs.bilkent.edu.tr",
         "password": "musedinliyorum",
