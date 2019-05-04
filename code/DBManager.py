@@ -104,6 +104,15 @@ class DBManager:
                 user_list = user_list + x
         return user_list
 
+    def canSee(self,userId,group):
+        user_list = self.fetchUser(userId=userId)
+        val = 0
+        user = user_list[0]
+        groups = user['groups']
+        for g in groups:
+            if g['id'] == group:
+                val = g['leaders']
+        return val
     def setUser(self, id:int, name:str):
         return
 
