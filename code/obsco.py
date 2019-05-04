@@ -2,12 +2,14 @@ from flask import Flask, jsonify, abort, make_response, request
 #import Accountant, Analyzer, DBManager, Group, ObsCoManager, User, Variables
 #from DBManager import DBManager
 from flask_pymongo import PyMongo
+from db import mongo
+import DBManager
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/obsco"
-mongo = PyMongo(app)
+mongo.init_app(app)
 
-#man = DBManager()
+man = DBManager.DBManager()
 #val = man.fetchUser(userId=12345671)
 
 @app.route('/')
@@ -16,31 +18,7 @@ def hello_world():
 
 @app.route('/obsco/api/v1.0/users/<int:userId>', methods=['GET'])
 def get_user(name = '', userId = -1):
-    users = mongo.db.users
-    results = []
-        
-    #No query for invalid calls
-    if (name == "" and userId == -1):
-           raise Exception("You need to enter the name or the ID of the user.")
-       
-       #function call with userId
-    elif (userId != -1) :
-        for entry in users.find({},{'_id':0}):
-            if (int(entry["id"]) == int(userId)):
-                results.append(entry) 
-
-        #function call with only name
-    elif (str(name) != "") :
-        split_name = "".join(name.split())
-        split_name = split_name.lower()
-        for entry in users.find({},{'_id':0}):
-            temp_entry = entry["name"].lower()
-            temp_entry = "".join(temp_entry.split())
-            if (split_name in temp_entry):
-                results.append(entry)
-    if (len(results)==0):
-        #raise Exception("No user has been found with the given credentials.")
-        abort(404)
+    results = man.fetchUser(userId)
     return jsonify({'users': results})
 
 @app.route('/obsco/api/v1.0/groups/<int:group>', methods=['GET'])
