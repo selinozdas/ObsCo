@@ -5,36 +5,12 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/obsco"
 from db import mongo
 mongo.init_app(app)
-
-
+import dbmanagertest
+man = dbmanagertest.dbmanagertest()
 @app.route('/users/<int:userId>', methods=['GET'])
 def get_user(name='', userId=-1):
-    users = mongo.db.users
-    results = []
-
-    # No query for invalid calls
-    if (name == "" and userId == -1):
-        raise Exception("You need to enter the name or the ID of the user.")
-
-    # function call with userId
-    elif (userId != -1):
-        for entry in users.find({}, {'_id': 0}):
-            if (int(entry["id"]) == int(userId)):
-                results.append(entry)
-
-                # function call with only name
-    elif (str(name) != ""):
-        split_name = "".join(name.split())
-        split_name = split_name.lower()
-        for entry in users.find({}, {'_id': 0}):
-            temp_entry = entry["name"].lower()
-            temp_entry = "".join(temp_entry.split())
-            if (split_name in temp_entry):
-                results.append(entry)
-    if (len(results) == 0):
-        raise Exception("No user has been found with the given credentials.")
+    results = man.fetchUser(userId=userId)
     return jsonify({'users': results})
-
 
 @app.route("/skills/<int:userId>", methods=['GET'])
 def get_skill(userId, skill=-1) -> list:

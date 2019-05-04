@@ -18,7 +18,7 @@ def hello_world():
 
 @app.route('/obsco/api/v1.0/users/<int:userId>', methods=['GET'])
 def get_user(name = '', userId = -1):
-    results = man.fetchUser(userId)
+    results = man.fetchUser(userId=userId)
     return jsonify({'users': results})
 
 @app.route('/obsco/api/v1.0/groups/<int:group>', methods=['GET'])
