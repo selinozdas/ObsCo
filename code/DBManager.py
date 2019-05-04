@@ -24,7 +24,7 @@ class DBManager:
 
         # No query for invalid calls
         if (name == "" and userId == -1):
-            return 'Invalid call to the function'
+            return []
 
         # function call with userId
         elif (userId != -1):
@@ -43,7 +43,7 @@ class DBManager:
                     results.append(entry)
         # if no result can be found
         if (len(results) == 0):
-            return "No user has been found with the given credentials."
+            return []
         return results
 
     # returns the specified skill if entered as parameter, else returns all of the skills that the user with the ID has
