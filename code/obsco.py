@@ -35,6 +35,12 @@ def get_skill(userId, skill = -1)->list:
 def can_see(userId,group):
     see = man.canSee(userId,group)
     return jsonify({'canSee': see})
+
+@app.route('/obsco/api/v1.0/groupname/<int:id>', methods=['GET'])
+def get_gname(id):
+    name = man.getGroupName(id)
+    return jsonify({'name': name})
+
 '''
 @app.route('/obsco/api/v1.0/skills/addskill/', methods=['POST', 'GET'])
 def add_skill():

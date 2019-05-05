@@ -113,8 +113,12 @@ class DBManager:
             if g['id'] == group:
                 val = g['leaders']
         return val
-    def setUser(self, id:int, name:str):
-        return
+    
+    def getGroupName(self, group:int):
+        groups = self.mongo.db.groups.find({'id':group},{'_id':0})
+        group_list = [i for i in groups]
+        return group_list[0]['name']
+
 
     def setAnswer(self, form:int, user: User):
         return
