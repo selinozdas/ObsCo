@@ -3,43 +3,74 @@ from flask import Flask, jsonify, abort, make_response, request
 #from DBManager import DBManager
 from flask_pymongo import PyMongo
 from db import mongo
-import DBManager
+import DBManager as dbm
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/obsco"
 mongo.init_app(app)
 
-man = DBManager.DBManager()
-#val = man.fetchUser(userId=12345671)
 
 @app.route('/')
 def hello_world():
     return 'ObsCo initialized'
 
+
 @app.route('/obsco/api/v1.0/users/<int:userId>', methods=['GET'])
 def get_user(name = '', userId = -1):
-    results = man.fetchUser(userId=userId)
+    results = dbm.fetchUser(userId=userId)
     return jsonify({'users': results})
+
 
 @app.route('/obsco/api/v1.0/groups/<int:group>', methods=['GET'])
 def get_group(group, name="")->list:
-    group_members = man.getGroup(group)
+    group_members = dbm.getGroup(group)
     return jsonify({'groups': group_members})
+
 
 @app.route('/obsco/api/v1.0/skills/<int:userId>', methods=['GET'])
 def get_skill(userId, skill = -1)->list:
-    skill_list = man.getSkill(userId)
+    '''
+        returns skills of a user
+    '''
+    skill_list = dbm.getSkill(userId)
     return jsonify({'skills': skill_list})
+
 
 @app.route('/obsco/api/v1.0/cansee/<int:userId>/<int:group>', methods=['GET'])
 def can_see(userId,group):
-    see = man.canSee(userId,group)
+    '''
+    returns 1 if user can see relations
+    '''
+    see = dbm.canSee(userId,group)
     return jsonify({'canSee': see})
+
 
 @app.route('/obsco/api/v1.0/groupname/<int:id>', methods=['GET'])
 def get_gname(id):
-    name = man.getGroupName(id)
+    '''
+    returns the group name with the specific id
+    '''
+    name = dbm.getGroupName(id)
     return jsonify({'name': name})
+
+
+@app.route('/obsco/api/v1.0/skilllist', methods=['GET'])
+def get_skill_list():
+    '''
+    returns all skills in db
+    '''
+    name = dbm.getSkillList()
+    return jsonify({'skills': name})
+
+@app.route('/obsco/api/v1.0/recommender/<int:id>/<int:nu>/<skills>', methods=['GET'])
+def get_recommendation(id,nu,skills):
+    '''
+    returns all skills in db
+    '''
+    skill_list = skills.split('_')
+    skill_list = [int(i) for i in skill_list]
+    recommended = dbm.recommend(id,skill_list,nu)
+    return jsonify({'skills': recommended})
 
 '''
 @app.route('/obsco/api/v1.0/skills/addskill/', methods=['POST', 'GET'])

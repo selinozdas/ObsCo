@@ -1,7 +1,32 @@
-#!/bin/python3
-
 import math
 
+def get_variance(data, ci):
+    column_data = []
+
+    for ri in range(len(data)):
+        if data[ri][ci] >= 0:
+            column_data.append(data[ri][ci])
+
+    return calculate_variance(column_data)
+
+
+def get_variances(data):
+    var = []
+
+    for ci in range(len(data[0])):
+        var.append(get_variance(data, ci))
+
+    return var
+def convert_to_int(data):
+    int_data = []
+
+    for ri in range(len(data)):
+        int_data.append([])
+
+        for ci in range(len(data[0])):
+            int_data[ri].append(int(data[ri][ci]))
+
+    return int_data
 
 def calculate_mean(arr):
     total = 0
@@ -64,11 +89,3 @@ def quick_sort(arr, low=None, high=None, indexes=None, is_ascending=True):
         quick_sort(arr, low, pivot - 1, indexes)
         quick_sort(arr, pivot + 1, high, indexes)
 
-
-if __name__ == '__main__':
-    data = [10, 2, 8, -3, 20, 1, 4]
-
-    result = quick_sort(data, is_ascending=False)
-
-    print(result)
-    print(data)

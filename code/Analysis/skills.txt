@@ -1,5 +1,0 @@
-python
-c++
-c#
-java
-php
