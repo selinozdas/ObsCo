@@ -401,6 +401,50 @@ db.users.insert_many(
              "value": 7
             }
         ]
-    }
+    },
+    {   "name" : "Berat Bicer",
+        "id": 21400518,
+        "groups" : [
+            {'id':4,
+            'members':1,
+            'owner':0,
+            'leaders':0},
+            {'id':7,
+            'members':1,
+            'owner':0,
+            'leaders':0},
+            {'id':10,
+            'members':1,
+            'owner':1,
+            'leaders':1},
+            {'id':11,
+            'members':1,
+            'owner':0,
+            'leaders':0}
+        ],
+        "email" : "berat.bicer@ug.bilkent.edu.tr",
+        "password" : "tobeornottobe",
+        "age" : 22,
+        "superuser" : False,
+        "title" : "Student",
+        "skills":[{
+             "id": 2,
+             "value": 7
+            },
+            {
+             "id": 4,
+             "value": 8
+            },
+            {
+             "id": 6,
+             "value": 6
+            },
+            {
+             "id": 9,
+             "value": 7
+            }
+        ]
+    },
+
 ]
 )
