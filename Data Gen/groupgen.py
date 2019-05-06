@@ -70,9 +70,9 @@ db.groups.insert_many([
     {
         "id": 9,
         "name": "Orchestrion Front-End",
-        "members": [21400530, 21400531],
-        'owner': 21400530,
-        'leaders': [21400530]
+        "members": [21400528, 214000530, 21400531],
+        'owner': 21400528,
+        'leaders': [21400528]
 
     },
     {
