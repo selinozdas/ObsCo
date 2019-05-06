@@ -38,14 +38,14 @@ db.groups.insert_many([
     },
     {
         "id":5,
-        "name":"Back-End",
+        "name":"ObsCo Back-End",
         "members":[21400537,21400538,21400539],
         'owner':21400537,
         'leaders':[21400537]
     },
     {
         "id":6,
-        "name":"Front-End",
+        "name":"ObsCo Front-End",
         "members":[21400538,21400540,21400541],
         'owner':21400538,
         'leaders':[21400538]
@@ -58,5 +58,38 @@ db.groups.insert_many([
         "owner": 12345671,
         "leaders": [12345671,12345672,12345673]
         
+    },
+    {
+        "id": 8,
+        "name": "Orchestrion Back-End",
+        "members": [21400527, 21400528, 21400529],
+        'owner': 21400527,
+        'leaders': [21400527]
+
+    },
+    {
+        "id": 9,
+        "name": "Orchestrion Front-End",
+        "members": [21400530, 21400531],
+        'owner': 21400530,
+        'leaders': [21400530]
+
+    },
+    {
+        "id": 10,
+        "name": "Warp Back-End",
+        "members": [21400518, 21400519],
+        'owner': 21400518,
+        'leaders': [21400518]
+
+    },
+
+    {
+        "id": 11,
+        "name": "Warp Front-End",
+        "members": [21400517, 21400518],
+        'owner': 21400517,
+        'leaders': [21400517]
+
     },
 ])
