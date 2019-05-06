@@ -445,6 +445,40 @@ db.users.insert_many(
             }
         ]
     },
-
+    {   "name" : "Bahadir Durmaz",
+        "id": 21400519,
+        "groups" : [
+            {'id':4,
+            'members':1,
+            'owner':0,
+            'leaders':0},
+            {'id':7,
+            'members':1,
+            'owner':0,
+            'leaders':0},
+            {'id':10,
+            'members':1,
+            'owner':0,
+            'leaders':0}
+        ],
+        "email" : "bahadir.durmaz@ug.bilkent.edu.tr",
+        "password" : "pizzasuckswithoutyou",
+        "age" : 22,
+        "superuser" : False,
+        "title" : "Student",
+        "skills":[{
+             "id": 4,
+             "value": 6
+            },
+            {
+             "id": 6,
+             "value": 8
+            },
+            {
+             "id": 9,
+             "value": 5
+            }
+        ]
+    }
 ]
 )
