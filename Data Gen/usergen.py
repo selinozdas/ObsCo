@@ -339,7 +339,7 @@ db.users.insert_many(
         "email" : "berk.erzin@ug.bilkent.edu.tr",
         "password" : "orumcekadam",
         "age" : 25,
-        "superuser" : True,
+        "superuser" : False,
         "title" : "Student",
         "skills":[{
              "id": 1,
@@ -360,6 +360,45 @@ db.users.insert_many(
             {
              "id": 13,
              "value": 6
+            }
+        ]
+    },
+    {   "name" : "Serhat Aras",
+        "id": 21400517,
+        "groups" : [
+            {'id':4,
+            'members':1,
+            'owner':0,
+            'leaders':1},
+            {'id':7,
+            'members':1,
+            'owner':0,
+            'leaders':0},
+            {'id':11,
+            'members':1,
+            'owner':1,
+            'leaders':1}
+        ],
+        "email" : "serhat.aras@ug.bilkent.edu.tr",
+        "password" : "ilovecoding",
+        "age" : 22,
+        "superuser" : False,
+        "title" : "Student",
+        "skills":[{
+             "id": 1,
+             "value": 5
+            },
+            {
+             "id": 2,
+             "value": 6
+            },
+            {
+             "id": 10,
+             "value": 5
+            },
+            {
+             "id": 13,
+             "value": 7
             }
         ]
     }
