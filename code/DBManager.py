@@ -1,4 +1,3 @@
-import User
 from helpers import quick_sort,get_variances
 from pprint import pprint
 from db import mongo
@@ -96,13 +95,38 @@ def getGroup(group: int, name="") -> list:
     userID_list = []
     user_list = []
     for entry in groups:
-        print(entry['members'])
         if entry["id"] == group:
             userID_list = userID_list + entry["members"]
     if len(userID_list) != 0:
         for entry in userID_list:
             x = fetchUser(userId=entry)
             user_list = user_list + x
+    return user_list
+
+def addSkill(name):
+    skill_nu = getSkillLength() + 1
+    entry = {'id':skill_nu, 'name':name,'members':[]}
+    try:
+        response = mongo.db.skills.insert_one(entry)
+    except:
+        return 'Yetenek eklenemedi'
+    return 'Yetenek başarıyla eklendi'
+
+def getGroupMembers(group):
+    groups = mongo.db.groups.find({'id':group},{'_id':0})
+    userID_list = []
+    user_list = []
+    for entry in groups:
+        if entry["id"] == group:
+            userID_list = userID_list + entry["members"]
+    if len(userID_list) != 0:
+        for entry in userID_list:
+            x = fetchUser(userId=entry)
+            y = []
+            for i in x:
+                temp = {'id':i['id'],'name':i['name']}
+                y.append(temp)
+            user_list = user_list + y
     return user_list
 
 
@@ -121,7 +145,6 @@ def getGroupName( group:int):
     groups = mongo.db.groups.find({'id':group},{'_id':0})
     group_list = [i for i in groups]
     return group_list[0]['name']
-
 
 def getSkillName( skill:int):
     '''
@@ -151,7 +174,6 @@ def getSkillLength():
     skills = mongo.db.skills.find({},{'_id':0})
     skills = [skill for skill in skills]
     return(len(skills))
-
 
 def getSkillList():
     '''

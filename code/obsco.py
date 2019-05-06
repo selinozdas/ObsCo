@@ -72,14 +72,20 @@ def get_recommendation(id,nu,skills):
     recommended = dbm.recommend(id,skill_list,nu)
     return jsonify({'skills': recommended})
 
-'''
-@app.route('/obsco/api/v1.0/skills/addskill/', methods=['POST', 'GET'])
-def add_skill():
-    mongo.db.skills.findOne({$query: {}, $orderby: {$natural: -1}} )
-    id = request.args.get('id', None)
-    name = request.args.get('name', None)
-    return jsonify({'id': id}, {'name': name})
-'''
+@app.route('/obsco/api/v1.0/groupmembers/<int:group>', methods=['GET'])
+def get_group_members(group)->list:
+    group_members = dbm.getGroupMembers(group)
+    return jsonify({'groups': group_members})
+
+@app.route('/obsco/api/v1.0/addskill/<name>', methods=['GET'])
+def add_user(name):
+    '''
+    add skill into db with the given name
+    '''
+    processed_name = name.replace('_',' ')
+    response = dbm.addSkill(processed_name)
+    return jsonify({'skills': response})
+
 
 '''
 @app.route('/obsco/api/v1.0/groups/<int:group_id>', methods=['GET'])
@@ -99,9 +105,10 @@ def get_dbusers():
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 '''
+
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
