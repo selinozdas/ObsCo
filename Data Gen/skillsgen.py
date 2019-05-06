@@ -33,6 +33,10 @@ db.skills.insert_many([
             {
              "id": 21400541,
              "value": 5
+            },
+            {
+             "id": 21400517,
+             "value": 5
             }
         ]
     },
@@ -55,6 +59,14 @@ db.skills.insert_many([
             {
              "id": 21400540,
              "value": 5
+            },
+            {
+             "id": 21400517,
+             "value": 6
+            },
+            {
+             "id": 21400518,
+             "value": 7
             }
         ]
     },
@@ -87,6 +99,14 @@ db.skills.insert_many([
             {
              "id": 12345673,
              "value": 9
+            },
+            {
+             "id": 21400518,
+             "value": 8
+            },
+            {
+             "id": 21400519,
+             "value": 6
             }
         ]
     },
@@ -112,6 +132,14 @@ db.skills.insert_many([
             {
              "id": 12345673,
              "value": 10
+            },
+            {
+             "id": 21400518,
+             "value": 6
+            },
+            {
+             "id": 21400519,
+             "value": 8
             }
         ]
     },
@@ -166,6 +194,14 @@ db.skills.insert_many([
             {
              "id": 21400541,
              "value": 8
+            },
+            {
+             "id": 21400518,
+             "value": 7
+            },
+            {
+             "id": 21400519,
+             "value": 5
             }
         ]
     },
@@ -188,6 +224,10 @@ db.skills.insert_many([
             {
              "id": 21400541,
              "value": 8
+            },
+            {
+             "id": 21400517,
+             "value": 5
             }
         ]
     },
@@ -230,6 +270,10 @@ db.skills.insert_many([
             {
              "id": 21400541,
              "value": 6
+            },
+            {
+             "id": 21400517,
+             "value": 7
             }
         ]
     },
