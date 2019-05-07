@@ -2,7 +2,13 @@ from helpers import quick_sort,get_variances
 from pprint import pprint
 from db import mongo
 import numpy as np
+import pickle
+from sklearn.externals import joblib
+from sentiment import vect
+from util import remove_common_adjectives
 
+filename = 'obsco_model.sav'
+model = joblib.load(open(filename, 'rb'))
 
 def fetchUser(name="", userId=-1) -> list:
     """
@@ -272,22 +278,22 @@ def getRelation(first,second):
     relations_list = mongo.db.relations.find({},{'_id':0})
     relations = [rel for rel in relations_list]
     for entry in relations:
-        if first in entry['ids'] and second in entry['ids']:
-            scores = sum(entry['scores'])
-            len_scores = len(entry['scores'])
+        if first == entry['voter'] and second == entry['voted']:
+            scores = sum(entry['votes'])
+            len_scores = len(entry['votes'])
             return scores/len_scores
     return 0
 
-def getGroupReputation(id,group):
+def getGroupReputation(voted,group):
     relations_list = mongo.db.relations.find({},{'_id':0})
-    relations = [rel for rel in relations_list if id in rel['ids']]
+    relations = [rel for rel in relations_list if id == rel['voted']]
 
     members = getGroupMembers(group)
     member_ids = [member['id'] for member in members if member['id'] != id]
     member_count = len(member_ids)
     score_sum = 0
     for member in member_ids:
-        score_sum += getRelation(id,member)
+        score_sum += getRelation(voted,member)
     return float(format(score_sum/member_count,'.2f'))
 
 def getRelations(id,group):
@@ -296,3 +302,33 @@ def getRelations(id,group):
     for member in member_except_id:
         member['score'] = float(format(getRelation(id,member['id']),'.2f'))
     return sorted(member_except_id, key = lambda i: i['score'],reverse=True)
+
+def analyzer(entry):
+    processed,v = remove_common_adjectives(entry)
+    result = model.predict(vect.transform([processed]))
+    p = result[0]
+    print(p,v,processed)
+    if (p == 0) and (v == 0):
+        return 1
+    elif (p == 0) and (v == 1):
+        return 0
+    elif (p == 1) and (v == 0):
+        return 0
+    elif (p == 1) and (v == 1):
+        return 1
+    else:
+        return int(p)
+    return p
+
+def addNLPVote(voter,voted,entry):
+    nlp_result = analyzer(entry)
+    relations_list = mongo.db.relations.find({},{'_id':0})
+    relations = [rel for rel in relations_list if voter == rel['voter'] and voted == rel['voted']]
+    relations = relations[0]['votes']
+    relations.append(nlp_result)
+    relations_list = mongo.db.relations.update_one({'voter':voter,'voted':voted},{'$set':{'votes':relations}})
+    relations_list = mongo.db.relations.find({},{'_id':0})
+    relations = [rel for rel in relations_list if voter == rel['voter'] and voted == rel['voted']]
+    relations = relations[0]['votes']
+    return nlp_result
+

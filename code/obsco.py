@@ -99,6 +99,11 @@ def get_group_relations(id,group):
     average_reputation = dbm.getRelations(id,group)
     return jsonify({'relations': average_reputation})
 
+@app.route('/obsco/api/v1.0/sentiment/<int:voter>/<int:voted>/<entry>', methods=['GET'])
+def add_nlp_entry(voter,voted,entry):
+    x = dbm.addNLPVote(voter,voted,str(entry))
+    return jsonify({'relations': x})
+
 '''
 @app.route('/obsco/api/v1.0/groups/<int:group_id>', methods=['GET'])
 def get_groups(group_id):
