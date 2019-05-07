@@ -255,3 +255,44 @@ def recommend(group,skills,mem_nu):
         temp['recommended'] = float(format(list(i.values())[0],'.2f'))
         members.append(temp)
     return members
+
+def getTotalReputation(id):
+    relations_list = mongo.db.relations.find({},{'_id':0})
+    relations = [rel for rel in relations_list if id in rel['ids']]
+    count = len(relations)
+    sum_result = 0
+    for rel in relations:
+        scores  = rel['scores']
+        sum_scores = sum(scores)
+        len_scores = len(scores)
+        sum_result = sum_result + sum_scores/len_scores
+    return float(format(sum_result/count,'.2f'))
+
+def getRelation(first,second):
+    relations_list = mongo.db.relations.find({},{'_id':0})
+    relations = [rel for rel in relations_list]
+    for entry in relations:
+        if first in entry['ids'] and second in entry['ids']:
+            scores = sum(entry['scores'])
+            len_scores = len(entry['scores'])
+            return scores/len_scores
+    return 0
+
+def getGroupReputation(id,group):
+    relations_list = mongo.db.relations.find({},{'_id':0})
+    relations = [rel for rel in relations_list if id in rel['ids']]
+
+    members = getGroupMembers(group)
+    member_ids = [member['id'] for member in members if member['id'] != id]
+    member_count = len(member_ids)
+    score_sum = 0
+    for member in member_ids:
+        score_sum += getRelation(id,member)
+    return float(format(score_sum/member_count,'.2f'))
+
+def getRelations(id,group):
+    members = getGroupMembers(group)
+    member_except_id = [member for member in members if member['id'] != id]
+    for member in member_except_id:
+        member['score'] = float(format(getRelation(id,member['id']),'.2f'))
+    return sorted(member_except_id, key = lambda i: i['score'],reverse=True)

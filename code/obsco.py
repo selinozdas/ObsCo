@@ -64,18 +64,16 @@ def get_skill_list():
 
 @app.route('/obsco/api/v1.0/recommender/<int:id>/<int:nu>/<skills>', methods=['GET'])
 def get_recommendation(id,nu,skills):
-    '''
-    returns all skills in db
-    '''
+
     skill_list = skills.split('_')
     skill_list = [int(i) for i in skill_list]
     recommended = dbm.recommend(id,skill_list,nu)
-    return jsonify({'skills': recommended})
+    return jsonify({'recommendation': recommended})
 
 @app.route('/obsco/api/v1.0/groupmembers/<int:group>', methods=['GET'])
 def get_group_members(group)->list:
     group_members = dbm.getGroupMembers(group)
-    return jsonify({'groups': group_members})
+    return jsonify({'members': group_members})
 
 @app.route('/obsco/api/v1.0/addskill/<name>', methods=['GET'])
 def add_user(name):
@@ -84,8 +82,22 @@ def add_user(name):
     '''
     processed_name = name.replace('_',' ')
     response = dbm.addSkill(processed_name)
-    return jsonify({'skills': response})
+    return jsonify({'isAdded': response})
 
+@app.route('/obsco/api/v1.0/reputation/<int:id>', methods=['GET'])
+def get_total_reputation(id):
+    average_reputation = dbm.getTotalReputation(id)
+    return jsonify({'reputation': average_reputation})
+
+@app.route('/obsco/api/v1.0/groupreputation/<int:id>/<int:group>', methods=['GET'])
+def get_group_reputation(id,group):
+    average_reputation = dbm.getGroupReputation(id,group)
+    return jsonify({'reputation': average_reputation})
+
+@app.route('/obsco/api/v1.0/grouprelations/<int:id>/<int:group>', methods=['GET'])
+def get_group_relations(id,group):
+    average_reputation = dbm.getRelations(id,group)
+    return jsonify({'relations': average_reputation})
 
 '''
 @app.route('/obsco/api/v1.0/groups/<int:group_id>', methods=['GET'])
