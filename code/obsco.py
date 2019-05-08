@@ -128,6 +128,15 @@ def get_image():
     filename = 'default_profile_pic.jpg'
     return send_file(filename, mimetype='image')
 
+@app.route('/obsco/api/v1.0/voteskill/<int:voter>/<int:voted>/<int:skill>/<int:vote>', methods=['GET'])
+def vote_skill(voter,voted,skill,vote):
+    result = dbm.voteSkill(voted,skill,vote)
+    return jsonify({'voted': result})
+@app.route('/obsco/api/v1.0/votesre', methods=['GET'])
+def reassign_all():
+    result = dbm.reassignAll()
+    return jsonify({'voted': result})
+
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)

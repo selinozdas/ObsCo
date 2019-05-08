@@ -419,7 +419,46 @@ def changePassword(id,password):
     mongo.db.users.update_one({'id':id},{'$set':{'password': password}})
     return 'Parola basariyla degistirildi'
     
+def voteSkill(voted,skill,vote):
+    vote_cursor = mongo.db.votes.find({'id':voted},{'_id':0})
+    voted_skills = [v for v in vote_cursor if v['skill']==skill]
+    if len(voted_skills) == 0:
+        new_skill = {}
+        new_skill['id'] = voted
+        new_skill['skill'] = skill
+        new_skill['points'] = [vote]
+        mongo.db.votes.insert_one(new_skill)
+    else:
+        voted_skill = voted_skills[0]
+        points = voted_skill['points']
+        points.append(vote)
+        mongo.db.votes.update_one({'id':voted,'skill':skill},{'$set':{'points': points}})
+    reassignVotes(voted,skill)
+    return 'Yetenek basariyla oylandi.'
 
-                    
+def reassignVotes(voted,skill):
+    voted_cursor = mongo.db.users.find({'id':voted},{'_id':0})
+    members = [i for i in voted_cursor]
+    member = members[0]
+    skills = member['skills']
+    is_skill = False
+    for s in skills:
+        if s['id'] == skill:
+            is_skill = True
+            vote_cursor = mongo.db.votes.find({'id':voted,'skill':skill},{'_id':0})
+            voted_skills = [v for v in vote_cursor]
+            points = voted_skills[0]['points']
+            s['value'] = float(format(sum(points)/len(points),'.2f'))
+            mongo.db.users.update_one({'id':voted},{'$set':{'skills':skills}})
+    return 'Success'
 
+def reassignAll():
+    cursor = mongo.db.users.find({},{'_id':0})
+    users = [u for u in cursor]
+    for user in users:
+        u_id = user['id']
+        skills = user['skills']
+        for skill in skills:
+            result = reassignVotes(u_id,skill['id'])
+    return 'Success'
 
