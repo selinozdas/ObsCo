@@ -123,52 +123,47 @@ def change_pwd(id,password):
     result = dbm.changePassword(id,password)
     return jsonify({'changed': result})
 
-@app.route('/obsco/api/v1.0/get_image')
-def get_image():
-    filename = 'default_profile_pic.jpg'
-    return send_file(filename, mimetype='image')
-
 @app.route('/obsco/api/v1.0/get_dummy_image')
 def get_dummy_image():
     filename = 'default_profile_pic.jpg'
     return send_file(filename, mimetype='image')
 
-@app.route('/obsco/api/v1.0/altay')
+@app.route('/obsco/api/v1.0/12345671')
 def get_altay():
     filename = 'guvenir.jpg'
     return send_file(filename, mimetype='image')
 
-@app.route('/obsco/api/v1.0/ercument')
+@app.route('/obsco/api/v1.0/12345672')
 def get_ercument():
     filename = 'ercument.jpg'
     return send_file(filename, mimetype='image')
 
-@app.route('/obsco/api/v1.0/hamdi')
+@app.route('/obsco/api/v1.0/12345673')
 def get_hamdi():
     filename = 'hamdi.jpg'
     return send_file(filename, mimetype='image')
 
-@app.route('/obsco/api/v1.0/berk')
+@app.route('/obsco/api/v1.0/21400541')
 def get_berk():
     filename = 'berk.png'
     return send_file(filename, mimetype='image')
 
-@app.route('/obsco/api/v1.0/ceren')
+@app.route('/obsco/api/v1.0/21400539')
 def get_ceren():
     filename = 'ceren.png'
     return send_file(filename, mimetype='image')
 
-@app.route('/obsco/api/v1.0/dogan')
+@app.route('/obsco/api/v1.0/21400538')
 def get_dogan():
     filename = 'dogan.png'
     return send_file(filename, mimetype='image')
 
-@app.route('/obsco/api/v1.0/mahir')
+@app.route('/obsco/api/v1.0/21400540')
 def get_mahir():
     filename = 'mahir.png'
     return send_file(filename, mimetype='image')
 
-@app.route('/obsco/api/v1.0/selin')
+@app.route('/obsco/api/v1.0/21400537')
 def get_selin():
     filename = 'selin.png'
     return send_file(filename, mimetype='image')
