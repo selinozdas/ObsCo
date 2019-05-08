@@ -101,31 +101,32 @@ def get_group_relations(id,group):
 
 @app.route('/obsco/api/v1.0/sentiment/<int:voter>/<int:voted>/<entry>', methods=['GET'])
 def add_nlp_entry(voter,voted,entry):
-    x = dbm.addNLPVote(voter,voted,str(entry))
-    return jsonify({'relations': x})
+    result = dbm.addNLPVote(voter,voted,str(entry))
+    return jsonify({'relations': result})
 
-'''
-@app.route('/obsco/api/v1.0/groups/<int:group_id>', methods=['GET'])
-def get_groups(group_id):
-    group = [group for group in groups if group['id'] == group_id]
-    if len(group) == 0:
-        abort(404)
-    return jsonify({'group': group[0]})
+@app.route('/obsco/api/v1.0/eligiblemembers/<int:id>', methods=['GET'])
+def get_eligible(id):
+    result = dbm.getGroups(id)
+    return jsonify({'eligible': result})
 
-@app.route('/obsco/api/v1.0/dbusers', methods=['GET'])
-def get_dbusers():
-    online_users = mongo.db.users.find({"id": 12345671},{'_id':0})
-    x = [i for i in online_users]
-    return jsonify({"index.html": x})
+@app.route('/obsco/api/v1.0/creategroup/<name>/<int:owner>/<members>', methods=['GET'])
+def create_group(name,owner,members):
+    result = dbm.createGroup(name,owner,members)
+    return jsonify({'creation': result})
 
-@app.errorhandler(404)
-def not_found(error):
-    return make_response(jsonify({'error': 'Not found'}), 404)
-'''
+@app.route('/obsco/api/v1.0/addleader/<int:owner>/<int:group>/<members>', methods=['GET'])
+def add_leader(owner,group,members):
+    result = dbm.addLeader(owner,group,members)
+    return jsonify({'added': result})
+
+@app.route('/obsco/api/v1.0/changepassword/<int:id>/<password>', methods=['GET'])
+def change_pwd(id,password):
+    result = dbm.changePassword(id,password)
+    return jsonify({'changed': result})
 
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(threaded = True,debug=True)

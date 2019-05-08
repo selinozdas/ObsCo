@@ -264,14 +264,15 @@ def recommend(group,skills,mem_nu):
 
 def getTotalReputation(id):
     relations_list = mongo.db.relations.find({},{'_id':0})
-    relations = [rel for rel in relations_list if id in rel['ids']]
+    relations = [rel for rel in relations_list if id == rel['voted']]
     count = len(relations)
     sum_result = 0
     for rel in relations:
-        scores  = rel['scores']
+        scores  = rel['votes']
         sum_scores = sum(scores)
         len_scores = len(scores)
-        sum_result = sum_result + sum_scores/len_scores
+        if len_scores !=0:
+            sum_result = sum_result + sum_scores/len_scores
     return float(format(sum_result/count,'.2f'))
 
 def getRelation(first,second):
@@ -281,7 +282,8 @@ def getRelation(first,second):
         if first == entry['voter'] and second == entry['voted']:
             scores = sum(entry['votes'])
             len_scores = len(entry['votes'])
-            return scores/len_scores
+            if len_scores != 0:
+                return scores/len_scores
     return 0
 
 def getGroupReputation(voted,group):
@@ -326,9 +328,98 @@ def addNLPVote(voter,voted,entry):
     relations = [rel for rel in relations_list if voter == rel['voter'] and voted == rel['voted']]
     relations = relations[0]['votes']
     relations.append(nlp_result)
-    relations_list = mongo.db.relations.update_one({'voter':voter,'voted':voted},{'$set':{'votes':relations}})
+    relations_list = mongo.db.relations.update({'voter':voter,'voted':voted},{'$set':{'votes':relations}})
     relations_list = mongo.db.relations.find({},{'_id':0})
     relations = [rel for rel in relations_list if voter == rel['voter'] and voted == rel['voted']]
     relations = relations[0]['votes']
     return nlp_result
+
+def getGroups(id):
+    group_list = mongo.db.groups.find({},{'_id':0})
+    groups = [g['id'] for g in group_list if id in g['leaders'] ]
+    member_list = []
+    for i in groups:
+        member_i = getGroupMembers(i)
+        for j in member_i:
+            if j not in member_list:
+                member_list.append(j)
+    return member_list
+
+
+def createGroup(name,owner,member_list):
+    group_list = mongo.db.groups.find({},{'_id':0})
+    groups = [x for x in group_list]
+    new_group_id = len(groups)+1
+    ids_to_add = member_list.split('_')
+    members = [int(i) for i in ids_to_add]
+    name = ' '.join(name.split('_'))
+    leaders = [owner]
+    new_group = {'id':new_group_id, 'name':name, 'members':members, 'owner':owner, 'leaders':leaders}
+    try:
+        mongo.db.groups.insert_one(new_group)
+    except:
+        return 'Grup olusturulamadi.'
+    if owner in members:
+        for mem in members:
+            g_info = {}
+            u = fetchUser(userId=mem)[0]
+            g = u['groups']
+            if mem == owner:
+                g_info['id'] = new_group_id
+                g_info['leaders'] = 1
+                g_info['owner'] = 1
+                g_info['members'] = 1
+                g.append(g_info)
+            else:
+                g_info['id'] = new_group_id
+                g_info['leaders'] = 0
+                g_info['owner'] = 0
+                g_info['members'] = 1
+                g.append(g_info)
+            mongo.db.users.update_one({'id':mem},{'$set':{'groups':g}})
+    else:
+        for mem in members:
+            g_info = {}
+            u = fetchUser(userId=mem)[0]
+            g = u['groups']
+            g_info['id'] = new_group_id
+            g_info['leaders'] = 0
+            g_info['owner'] = 0
+            g_info['members'] = 1
+            g.append(g_info)
+            mongo.db.users.update_one({'id':mem},{'$set':{'groups':g}})
+    return 'Grup basariyla eklendi'
+
+def addLeader(owner,group,members):
+    can_see = canSee(owner,group)
+    if can_see == 1:
+        cursor = mongo.db.groups.find({'id':group},{'_id':0})
+        group_to_add = [i for i in cursor][0]
+        to_be_leader = members.split('_')
+        to_be_leader = [int(i) for i in to_be_leader]
+        current_leaders = group_to_add['leaders']
+        to_be_leader = [i for i in to_be_leader if i not in current_leaders]
+        current_leaders = current_leaders + to_be_leader
+        mongo.db.groups.update_one({'id':group},{'$set':{'leaders':current_leaders}})
+        for l in to_be_leader:
+            user = fetchUser(userId=l)[0]
+            user_groups = user['groups']
+            for g in user_groups:
+                if g['id'] == group:
+                    g['leaders'] = 1
+            if canSee(l,group) == 0:
+                new_group = {'id':group,'members':0,'owner':0,'leaders':1}
+                user_groups.append(new_group)
+            mongo.db.users.update_one({'id':l},{'$set':{'groups': user_groups}})
+        return 'Lider basariyla eklendi.'
+    else:
+        return 'Bu gruba lider ekleyemezsiniz.'
+
+def changePassword(id,password):
+    mongo.db.users.update_one({'id':id},{'$set':{'password': password}})
+    return 'Parola basariyla degistirildi'
+    
+
+                    
+
 
