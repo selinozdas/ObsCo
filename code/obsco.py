@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, abort, make_response, request
+from flask import Flask, jsonify, abort, make_response, request, send_file
 #import Accountant, Analyzer, DBManager, Group, ObsCoManager, User, Variables
 #from DBManager import DBManager
 from flask_pymongo import PyMongo
@@ -8,7 +8,6 @@ import DBManager as dbm
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/obsco"
 mongo.init_app(app)
-
 
 @app.route('/')
 def hello_world():
@@ -123,6 +122,11 @@ def add_leader(owner,group,members):
 def change_pwd(id,password):
     result = dbm.changePassword(id,password)
     return jsonify({'changed': result})
+
+@app.route('/obsco/api/v1.0/get_image')
+def get_image():
+    filename = 'default_profile_pic.jpg'
+    return send_file(filename, mimetype='image')
 
 @app.errorhandler(404)
 def not_found(error):
