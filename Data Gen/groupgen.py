@@ -91,5 +91,5 @@ db.groups.insert_many([
         'owner': 21400517,
         'leaders': [21400517]
 
-    },
+    }
 ])
