@@ -128,10 +128,56 @@ def get_image():
     filename = 'default_profile_pic.jpg'
     return send_file(filename, mimetype='image')
 
+@app.route('/obsco/api/v1.0/get_dummy_image')
+def get_dummy_image():
+    filename = 'default_profile_pic.jpg'
+    return send_file(filename, mimetype='image')
+
+@app.route('/obsco/api/v1.0/altay')
+def get_altay():
+    filename = 'guvenir.jpg'
+    return send_file(filename, mimetype='image')
+
+@app.route('/obsco/api/v1.0/ercument')
+def get_ercument():
+    filename = 'ercument.jpg'
+    return send_file(filename, mimetype='image')
+
+@app.route('/obsco/api/v1.0/hamdi')
+def get_hamdi():
+    filename = 'hamdi.jpg'
+    return send_file(filename, mimetype='image')
+
+@app.route('/obsco/api/v1.0/berk')
+def get_berk():
+    filename = 'berk.png'
+    return send_file(filename, mimetype='image')
+
+@app.route('/obsco/api/v1.0/ceren')
+def get_ceren():
+    filename = 'ceren.png'
+    return send_file(filename, mimetype='image')
+
+@app.route('/obsco/api/v1.0/dogan')
+def get_dogan():
+    filename = 'dogan.png'
+    return send_file(filename, mimetype='image')
+
+@app.route('/obsco/api/v1.0/mahir')
+def get_mahir():
+    filename = 'mahir.png'
+    return send_file(filename, mimetype='image')
+
+@app.route('/obsco/api/v1.0/selin')
+def get_selin():
+    filename = 'selin.png'
+    return send_file(filename, mimetype='image')
+
 @app.route('/obsco/api/v1.0/voteskill/<int:voted>/<int:skill>/<int:vote>', methods=['GET'])
 def vote_skill(voted,skill,vote):
     result = dbm.voteSkill(voted,skill,vote)
     return jsonify({'voted': result})
+
 @app.route('/obsco/api/v1.0/votesre', methods=['GET'])
 def reassign_all():
     result = dbm.reassignAll()
