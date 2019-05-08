@@ -128,8 +128,8 @@ def get_image():
     filename = 'default_profile_pic.jpg'
     return send_file(filename, mimetype='image')
 
-@app.route('/obsco/api/v1.0/voteskill/<int:voter>/<int:voted>/<int:skill>/<int:vote>', methods=['GET'])
-def vote_skill(voter,voted,skill,vote):
+@app.route('/obsco/api/v1.0/voteskill/<int:voted>/<int:skill>/<int:vote>', methods=['GET'])
+def vote_skill(voted,skill,vote):
     result = dbm.voteSkill(voted,skill,vote)
     return jsonify({'voted': result})
 @app.route('/obsco/api/v1.0/votesre', methods=['GET'])

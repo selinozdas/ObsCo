@@ -434,6 +434,7 @@ def voteSkill(voted,skill,vote):
         points.append(vote)
         mongo.db.votes.update_one({'id':voted,'skill':skill},{'$set':{'points': points}})
     reassignVotes(voted,skill)
+    reassignAll()
     return 'Yetenek basariyla oylandi.'
 
 def reassignVotes(voted,skill):
@@ -450,6 +451,15 @@ def reassignVotes(voted,skill):
             points = voted_skills[0]['points']
             s['value'] = float(format(sum(points)/len(points),'.2f'))
             mongo.db.users.update_one({'id':voted},{'$set':{'skills':skills}})
+    if is_skill == False:
+        new_skill = {}
+        new_skill['id'] = skill
+        vote_cursor = mongo.db.votes.find({'id':voted,'skill':skill},{'_id':0})
+        voted_skills = [v for v in vote_cursor]
+        points = voted_skills[0]['points']
+        new_skill['value'] = float(format(sum(points)/len(points),'.2f'))
+        skills.append(new_skill)
+        mongo.db.users.update_one({'id':voted},{'$set':{'skills':skills}})
     return 'Success'
 
 def reassignAll():
