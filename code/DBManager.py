@@ -161,11 +161,11 @@ def getSkillName( skill:int):
     return skill_list[0]['name']
 
 
-def analysisInfo(groupId:int):
+def analysisInfo(userid:int):
     '''
         Returns the information that is going to be used for recommender
     '''
-    members = getGroup(groupId)
+    members = getGroups(userid)
     member_list = []
     for member in members:
         entry = {member['id']: member['skills']}
@@ -188,7 +188,9 @@ def getSkillList():
     skills = mongo.db.skills.find({},{'_id':0})
     result = []
     for entry in skills:
-        temp = {entry['id']:entry['name']}
+        temp = {}
+        temp['id'] = entry['id']
+        temp['name'] = entry['name']
         result.append(temp)
     return result
 
@@ -339,7 +341,7 @@ def getGroups(id):
     groups = [g['id'] for g in group_list if id in g['leaders'] ]
     member_list = []
     for i in groups:
-        member_i = getGroupMembers(i)
+        member_i = getGroup(i)
         for j in member_i:
             if j not in member_list:
                 member_list.append(j)
@@ -471,4 +473,16 @@ def reassignAll():
         for skill in skills:
             result = reassignVotes(u_id,skill['id'])
     return 'Success'
+'''
+def addMemberTo(owner,member,group):
+    if canSee(owner,group) == 1:
+        user_cursor = mongo.db.users.find({'id':member},{'_id':0})
+        user = [i for i in user_cursor]
+        user = user[0]
+        groups = user['groups']
+        groups = [group for group in groups if group['id'] != group]
 
+
+def deleteMemberFrom(owner,member,group):
+    user_cursor = mongo.db.users.find({},{'_id':0})
+'''

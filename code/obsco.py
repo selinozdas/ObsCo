@@ -63,7 +63,9 @@ def get_skill_list():
 
 @app.route('/obsco/api/v1.0/recommender/<int:id>/<int:nu>/<skills>', methods=['GET'])
 def get_recommendation(id,nu,skills):
-
+    if skills == '_':
+        recommended = dbm.getGroups(id)
+        return jsonify({'recommendation': recommended})
     skill_list = skills.split('_')
     skill_list = [int(i) for i in skill_list]
     recommended = dbm.recommend(id,skill_list,nu)
@@ -75,7 +77,7 @@ def get_group_members(group)->list:
     return jsonify({'members': group_members})
 
 @app.route('/obsco/api/v1.0/addskill/<name>', methods=['GET'])
-def add_user(name):
+def add_skill(name):
     '''
     add skill into db with the given name
     '''
