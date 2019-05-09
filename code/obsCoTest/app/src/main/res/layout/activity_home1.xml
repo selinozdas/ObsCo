@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/menu1"
+    tools:context=".homeActivity1">
+
+
+    <Button
+        android:id="@+id/profilbutton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="414dp"
+        android:layout_height="64dp"
+
+        android:src="@drawable/loginbutton"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.368" />
+
+    <Button
+        android:id="@+id/hatabildirbutton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="414dp"
+        android:layout_height="64dp"
+
+        android:src="@drawable/loginbutton"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.464" />
+
+    <Button
+        android:id="@+id/gruplarimbutton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="414dp"
+        android:layout_height="53dp"
+
+        android:src="@drawable/loginbutton"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.551" />
+
+    <Button
+        android:id="@+id/ayarlarbutton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="414dp"
+        android:layout_height="55dp"
+
+        android:src="@drawable/loginbutton"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.631" />
+
+    <Button
+        android:id="@+id/cikisbutton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="414dp"
+        android:layout_height="64dp"
+
+        android:src="@drawable/loginbutton"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.722" />
+
+    <Button
+        android:id="@+id/testbutton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="414dp"
+        android:layout_height="64dp"
+
+        android:src="@drawable/loginbutton"
+        android:text="TEST BUTTON"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.818" />
+
+    <TextView
+        android:id="@+id/homeNameView"
+        android:layout_width="167dp"
+        android:layout_height="74dp"
+
+        android:text="Abdullah Mahir Özer"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.434"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.196" />
+
+
+</android.support.constraint.ConstraintLayout>

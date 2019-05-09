@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".voteSkillPage1">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageButton
+            android:id="@+id/add_vote"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="138dp"
+            android:layout_height="123dp"
+
+            android:layout_weight="1"
+            android:src="@drawable/blackbuttonhi100"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.5" />
+
+        <LinearLayout
+
+            android:id="@+id/texts_layout"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/add_vote"
+            tools:ignore="UselessParent"
+            tools:layout_editor_absoluteX="91dp">
+
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
