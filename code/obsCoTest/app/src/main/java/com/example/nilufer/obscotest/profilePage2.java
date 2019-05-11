@@ -10,6 +10,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -50,6 +52,27 @@ public class profilePage2 extends AppCompatActivity {
     String groupID;
     private ImageView addCommentButton;
     LinearLayout ll;
+
+    ImageView bmImage;
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap bmp = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                bmp = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return bmp;
+        }
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
+
     private class ConnectionTest extends AsyncTask {
         @Override
         protected Object doInBackground(Object... arg0) {
@@ -527,6 +550,13 @@ public class profilePage2 extends AppCompatActivity {
         makeProfilePicCircular();
         InitializeCommentButton();
         new ConnectionTest().execute("");
+
+        System.out.println("HEY HO LETS GO");
         //addUserTraits();
+
+        bmImage = findViewById(R.id.profile_pic);
+
+
+        new DownloadImageTask().execute("http://obsco.me/obsco/api/v1.0/" + secondUserId);
     }
 }

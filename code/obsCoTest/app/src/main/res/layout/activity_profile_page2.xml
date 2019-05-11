@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="top|center_horizontal"
-            android:background="#606060"
+            android:background="#000000"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="UselessParent"
@@ -65,9 +65,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#4DC2FF"
+                android:background="#FFDE59"
                 android:text="OBSCO"
-                android:textColor="#FFFFFF" />
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/second_trait"
@@ -76,10 +76,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#FF7FE5"
+                android:background="#FFDE59"
                 android:src="@drawable/geributton1"
                 android:text="Behavior Score"
-                android:textColor="#FFFFFF" />
+                android:textColor="#000000" />
 
         </LinearLayout>
 
