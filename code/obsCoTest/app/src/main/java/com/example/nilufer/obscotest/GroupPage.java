@@ -48,6 +48,7 @@ public class GroupPage extends AppCompatActivity {
             //call what you want to update
             initRecyclerView();
             initNewGroupButton();
+            initMainMenuButton();
             // dismiss progress dialog here
             // into onPostExecute() but that is upto you
         }
@@ -141,9 +142,28 @@ public class GroupPage extends AppCompatActivity {
             {
                 //Open new page
                 Intent intent = new Intent("android.intent.action.SKILLLIST");
-                intent.putExtra("userID", userID );
+                intent.putExtra("ID_FROM_LOGIN", userID );
+                intent.putExtra("NAME_FROM_LOGIN", userName);
+                intent.putExtra("PASSWORD_FROM_LOGIN", password);
                 startActivity(intent);
             }
         });
+    }
+    private void initMainMenuButton(){
+        Log.d(TAG, "initializingCreateGroupButton");
+        Button mainMenu = findViewById(R.id.button_main_menu);
+        mainMenu.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent("android.intent.action.HOMEPAGE1");
+                intent.putExtra("ID_FROM_LOGIN", userID);
+                intent.putExtra("NAME_FROM_LOGIN", userName);
+                intent.putExtra("PASSWORD_FROM_LOGIN", password);
+                startActivity(intent);
+            }
+        });
+
     }
 }
