@@ -100,6 +100,7 @@ public class profilePage2 extends AppCompatActivity {
 
 
             ll.addView(makeTextView("İletişim: "+email));
+            ll.addView(makeTextView("YETENEK LISTESI"));
             for (int i=0; i<skillsContainingArray.length(); i++)
             {
                 String skillName;
