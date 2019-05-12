@@ -26,6 +26,8 @@ public class SkillListPage extends AppCompatActivity {
     private ArrayList<String> skillNames = new ArrayList<>();
     private ArrayList<Boolean> checkBoxes = new ArrayList<>();
     private String userID;
+    private String password;
+    private String userName;
 
     private ArrayList<String> skillIDsOutput = new ArrayList<>();
 
@@ -101,7 +103,9 @@ public class SkillListPage extends AppCompatActivity {
 
     private void skillListInit() throws Exception{
         Intent intent = getIntent();
-        userID = intent.getStringExtra("userID");
+        userID = intent.getStringExtra("ID_FROM_LOGIN");
+        password = intent.getStringExtra("PASSWORD_FROM_LOGIN");
+        userName = intent.getStringExtra("NAME_FROM_LOGIN");
         new skillListConnect().execute();
     }
 
@@ -130,7 +134,9 @@ public class SkillListPage extends AppCompatActivity {
                 }
                 //Open new page
                 Intent intent = new Intent("android.intent.action.CREATEGROUP");
-                intent.putExtra("userID", userID );
+                intent.putExtra("ID_FROM_LOGIN", userID );
+                intent.putExtra("NAME_FROM_LOGIN", userName);
+                intent.putExtra("PASSWORD_FROM_LOGIN", password);
                 intent.putExtra("skillIDs", skillIDsOutput );
                 startActivity(intent);
             }

@@ -99,7 +99,7 @@ public class MemberList extends AppCompatActivity {
     private void memberListInit() throws Exception{
         Intent intent = getIntent();
         groupID = intent.getStringExtra("groupID");
-        userID = intent.getStringExtra("userID");
+        userID = intent.getStringExtra("ID_FROM_LOGIN");
         password = intent.getStringExtra("password");
         userName = intent.getStringExtra("userName");
         new memberListConnect().execute();

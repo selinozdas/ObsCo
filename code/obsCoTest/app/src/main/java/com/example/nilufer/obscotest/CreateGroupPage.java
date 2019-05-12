@@ -34,6 +34,8 @@ public class CreateGroupPage extends AppCompatActivity {
     private ArrayList<Boolean> checkBoxLeader = new ArrayList<>();
 
     private String userID;
+    private String password;
+    private String userName;
     String addID;
     String leaderID;
     String groupName;
@@ -58,6 +60,7 @@ public class CreateGroupPage extends AppCompatActivity {
             //call what you want to update
             initRecyclerView();
             initCreateGroupButton();
+            initMainMenuButton();
             // dismiss progress dialog here
             // into onPostExecute() but that is upto you
         }
@@ -109,7 +112,11 @@ public class CreateGroupPage extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Object o) {
-
+            Intent intent = new Intent("android.intent.action.GROUP");
+            intent.putExtra("ID_FROM_LOGIN", userID);
+            intent.putExtra("NAME_FROM_LOGIN", userName);
+            intent.putExtra("PASSWORD_FROM_LOGIN", password);
+            startActivity(intent);
         }
     }
 
@@ -171,7 +178,9 @@ public class CreateGroupPage extends AppCompatActivity {
 
     private void CreateGroupPageInit() throws Exception{
         Intent intent = getIntent();
-        userID = intent.getStringExtra("userID");
+        userID = intent.getStringExtra("ID_FROM_LOGIN");
+        password = intent.getStringExtra("PASSWORD_FROM_LOGIN");
+        userName = intent.getStringExtra("NAME_FROM_LOGIN");
         skillIDs = intent.getStringArrayListExtra("skillIDs");
         new groupPageConnect().execute();
     }
@@ -185,7 +194,7 @@ public class CreateGroupPage extends AppCompatActivity {
     }
 
     private void initCreateGroupButton(){
-        Log.d(TAG, "initializingCreateGroupButton");
+        Log.d(TAG, "initializingMainMenuButton");
         Button confirmSkill = findViewById(R.id.button_create_group);
         final EditText groupNameText = findViewById(R.id.group_name_input);
         confirmSkill.setOnClickListener(new View.OnClickListener()
@@ -207,6 +216,23 @@ public class CreateGroupPage extends AppCompatActivity {
                 }
                 groupName = groupNameText.getText().toString();
                 new createGroupConnect().execute();
+            }
+        });
+
+    }
+    private void initMainMenuButton(){
+        Log.d(TAG, "initializingCreateGroupButton");
+        Button mainMenu = findViewById(R.id.button_main_menu);
+        mainMenu.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent("android.intent.action.HOMEPAGE1");
+                intent.putExtra("ID_FROM_LOGIN", userID);
+                intent.putExtra("NAME_FROM_LOGIN", userName);
+                intent.putExtra("PASSWORD_FROM_LOGIN", password);
+                startActivity(intent);
             }
         });
 
