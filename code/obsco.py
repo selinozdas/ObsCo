@@ -170,7 +170,42 @@ def get_selin():
 
 @app.route('/obsco/api/v1.0/21400517')
 def get_serhat():
-    filename = 'blank.jpg'
+    filename = 'letters.jpg'
+    return send_file(filename, mimetype='image')
+
+@app.route('/obsco/api/v1.0/21400518')
+def get_berat():
+    filename = 'letterb.jpg'
+    return send_file(filename, mimetype='image')
+
+@app.route('/obsco/api/v1.0/21400519')
+def get_bahadir():
+    filename = 'letterb.jpg'
+    return send_file(filename, mimetype='image')
+
+@app.route('/obsco/api/v1.0/21400527')
+def get_tanay():
+    filename = 'lettert.jpg'
+    return send_file(filename, mimetype='image')
+
+@app.route('/obsco/api/v1.0/21400528')
+def get_furkan():
+    filename = 'letterf.jpg'
+    return send_file(filename, mimetype='image')
+
+@app.route('/obsco/api/v1.0/21400529')
+def get_pinar():
+    filename = 'letterp.jpg'
+    return send_file(filename, mimetype='image')
+
+@app.route('/obsco/api/v1.0/21400530')
+def get_omer():
+    filename = 'lettero.jpg'
+    return send_file(filename, mimetype='image')
+
+@app.route('/obsco/api/v1.0/21400531')
+def get_burak():
+    filename = 'letterb.jpg'
     return send_file(filename, mimetype='image')
 
 @app.route('/obsco/api/v1.0/voteskill/<int:voted>/<int:skill>/<int:vote>', methods=['GET'])
