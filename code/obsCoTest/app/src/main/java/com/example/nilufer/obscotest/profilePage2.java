@@ -542,8 +542,8 @@ public class profilePage2 extends AppCompatActivity {
         RoundedBitmapDrawable roundedBitmapDrawable= RoundedBitmapDrawableFactory.create(getResources(), imageBitmap);
 
 //setting radius
-        //roundedBitmapDrawable.setCornerRadius(50.0f);
-        roundedBitmapDrawable.setCircular(true);
+        roundedBitmapDrawable.setCornerRadius(500.0f);
+        //roundedBitmapDrawable.setCircular(true);
         roundedBitmapDrawable.setAntiAlias(true);
         profilePic.setImageDrawable(roundedBitmapDrawable);
     }

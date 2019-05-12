@@ -31,7 +31,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
 
-                android:src="@drawable/bertcase" />
+                android:src="@drawable/obscologowhite1" />
 
             <TextView
                 android:id="@+id/personnel_name"
