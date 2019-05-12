@@ -4,19 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#202020"
     tools:context=".profilePage2">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
 
             android:id="@+id/fullscreen_bot"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="500dp"
             android:layout_gravity="top|center_horizontal"
-            android:background="#000000"
-            android:orientation="horizontal"
+            android:background="#202020"
+            android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="UselessParent"
             tools:layout_editor_absoluteX="0dp">
@@ -36,7 +38,7 @@
 
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="100dp"
 
                 android:layout_weight="1"
                 android:src="@drawable/geributton1"
@@ -67,7 +69,7 @@
                 android:layout_weight="1"
                 android:background="#FFDE59"
                 android:text="OBSCO"
-                android:textColor="#000000" />
+                android:textColor="#202020" />
 
             <TextView
                 android:id="@+id/second_trait"
@@ -79,10 +81,9 @@
                 android:background="#FFDE59"
                 android:src="@drawable/geributton1"
                 android:text="Behavior Score"
-                android:textColor="#000000" />
+                android:textColor="#202020" />
 
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -92,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top|center_horizontal"
-            android:background="#FFFFFF"
+            android:background="#202020"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/traits_layout"
             tools:ignore="UselessParent"

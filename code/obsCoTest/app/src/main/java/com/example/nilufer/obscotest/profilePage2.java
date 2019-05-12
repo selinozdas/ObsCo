@@ -68,8 +68,11 @@ public class profilePage2 extends AppCompatActivity {
             }
             return bmp;
         }
-        protected void onPostExecute(Bitmap result) {
+        protected void onPostExecute(Bitmap result)
+        {
             bmImage.setImageBitmap(result);
+
+            makeProfilePicCircular(result);
         }
     }
 
@@ -508,18 +511,22 @@ public class profilePage2 extends AppCompatActivity {
         nameTextView.setTextAppearance(this, R.style.Widget_AppCompat_Button_Borderless);
         nameTextView.setGravity(Gravity.CENTER);
         nameTextView.setMinimumHeight(175);
+
+        nameTextView.setBackgroundColor(Color.argb(255,32,32,32));
+        nameTextView.setTextColor(Color.argb(255,255,255,255));
         //nameTextView.setLayoutParams(new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         return nameTextView;
     }
 
 
 
-    public void makeProfilePicCircular()
+    public void makeProfilePicCircular(Bitmap profileBitmap)
     {
         ImageView profilePic=(ImageView)findViewById(R.id.profile_pic);
 
 //get bitmap of the image
-        Bitmap imageBitmap= BitmapFactory.decodeResource(getResources(),  R.drawable.bertcase);
+        //Bitmap imageBitmap= BitmapFactory.decodeResource(getResources(),  R.drawable.bertcase);
+        Bitmap imageBitmap = profileBitmap;
         RoundedBitmapDrawable roundedBitmapDrawable= RoundedBitmapDrawableFactory.create(getResources(), imageBitmap);
 
 //setting radius
@@ -547,7 +554,7 @@ public class profilePage2 extends AppCompatActivity {
         secondUserId = getIntent().getStringExtra("secondUserID");
         groupID = getIntent().getStringExtra("groupID");
 
-        makeProfilePicCircular();
+        //makeProfilePicCircular();
         InitializeCommentButton();
         new ConnectionTest().execute("");
 
@@ -558,5 +565,7 @@ public class profilePage2 extends AppCompatActivity {
 
 
         new DownloadImageTask().execute("http://obsco.me/obsco/api/v1.0/" + secondUserId);
+
+
     }
 }
