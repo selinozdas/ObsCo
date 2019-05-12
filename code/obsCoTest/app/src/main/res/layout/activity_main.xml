@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/loginbg3"
     android:backgroundTint="#202020"
+
     tools:context=".MainActivity">
 <!--
     <ImageView
