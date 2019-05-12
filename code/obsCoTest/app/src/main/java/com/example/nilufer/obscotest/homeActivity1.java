@@ -433,5 +433,7 @@ Thread thread = new Thread(new Runnable() {
 
 
         InitializeGruplarimButton();
+        InitializeCreditsButton();
+        InitializeAyarlarButton();
     }
 }
