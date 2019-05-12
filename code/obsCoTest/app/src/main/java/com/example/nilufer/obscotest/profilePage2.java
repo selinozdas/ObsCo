@@ -103,6 +103,9 @@ public class profilePage2 extends AppCompatActivity {
             emailText.setText("İletişim: "+email);
             //ll.addView(makeTextView("İletişim: "+email));
             ll.addView(makeTextView("BECERiLER"));
+            System.out.println("TEST ME PLZ");
+            System.out.println(skillsContainingArray.length());
+
             for (int i=0; i<skillsContainingArray.length(); i++)
             {
                 String skillName;
@@ -143,7 +146,8 @@ public class profilePage2 extends AppCompatActivity {
             }
             //addUserTraits();
             //Show the result obtained from doInBackground
-        }
+            setNameAndTitle();
+        }//ON POST EXECUTE
 
     }
 
@@ -171,21 +175,21 @@ public class profilePage2 extends AppCompatActivity {
 
     private void sendGet() throws Exception {
         String url = "http://obsco.me/obsco/api/v1.0/users/" + secondUserId;
-        System.out.println("DEBUG POINT 1: ");
+        System.out.println("SENDGET 1: ");
         //String url = "http://obsco.me/obsco/api/v1.0/users/12345671"; //"http://127.0.0.1:5000/obsco/api/v1.0/users";
 
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        System.out.println("DEBUG POINT 2: ");
+        System.out.println("SENDGET 2: ");
         // optional default is GET
         con.setRequestMethod("GET");
-        System.out.println("DEBUG POINT 3: ");
+        System.out.println("SENDGET 3: ");
         //add request header
         //con.setRequestProperty("User-Agent",);
         con.setRequestProperty("User-Agent", "Mozilla/5.0");
 
         int responseCode = con.getResponseCode();
-        System.out.println("DEBUG POINT 4: ");
+        System.out.println("SENDGET 4: ");
         System.out.println("\nSending 'GET' request to URL : " + url);
         System.out.println("Response Code : " + responseCode);
 
@@ -204,29 +208,29 @@ public class profilePage2 extends AppCompatActivity {
 
         JSONObject reader = new JSONObject(response.toString());
 
-        System.out.println("DEBUG POINT 5:");
+        System.out.println("SENDGET 5:");
         JSONArray allContainingArray = reader.getJSONArray("users");
         JSONObject userJSON  = (JSONObject)allContainingArray.get(0);// reader.getJSONObject("users");
 
         //UGETJSON ARR
 
         secondUserId = userJSON.getString("id");
-        System.out.println("DEBUG POINT 6:" + id);
+        System.out.println("SENDGET 6:" + id);
         name = userJSON.getString("name");
         email = userJSON.getString("email");
-
-        TextView nameText = (TextView) findViewById(R.id.personnel_name);
-        nameText.setText(name);
-
-        TextView titleText = (TextView) findViewById(R.id.first_trait);
         title = userJSON.getString("title");
-        titleText.setText(title);
 
 
+
+        System.out.println("SENDGET 7:");
+
+
+
+        System.out.println("SENDGET 8:");
     }
 
     private void getSkillsResponse() throws Exception {
-
+        System.out.println("MEMEMERESPONSE-2: ");
         System.out.println("DEBUG POINT 1: ");
         //String url = "http://obsco.me/obsco/api/v1.0/skills/addskill/dogancan"; //"http://127.0.0.1:5000/obsco/api/v1.0/users";
         //String url = "http://obsco.me/obsco/api/v1.0/addskill/androiddev";
@@ -252,14 +256,14 @@ public class profilePage2 extends AppCompatActivity {
                 new InputStreamReader(con.getInputStream()));
         String inputLine;
         StringBuffer response = new StringBuffer();
-
+        System.out.println("MEMEMERESPONSE-1: ");
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
         }
         in.close();
 
         //print result
-        System.out.println("RESPONSE: ");
+        System.out.println("MEMEMERESPONSE: ");
         System.out.println(response.toString());
 
         JSONObject reader = new JSONObject(response.toString());
@@ -327,9 +331,14 @@ public class profilePage2 extends AppCompatActivity {
 
     }
 
-    private void setNameAndEmail()
+    private void setNameAndTitle()
     {
+        TextView nameText = (TextView) findViewById(R.id.personnel_name);
+        nameText.setText(name);
 
+        TextView titleText = (TextView) findViewById(R.id.first_trait);
+
+        titleText.setText(title);
     }
 
     private void getGroupRelations() throws Exception {
@@ -557,6 +566,8 @@ public class profilePage2 extends AppCompatActivity {
         secondUserId = getIntent().getStringExtra("secondUserID");
         groupID = getIntent().getStringExtra("groupID");
 
+        System.out.println("BELLI OLMAZ:");
+        System.out.println(secondUserId);
         //makeProfilePicCircular();
         InitializeCommentButton();
         new ConnectionTest().execute("");
