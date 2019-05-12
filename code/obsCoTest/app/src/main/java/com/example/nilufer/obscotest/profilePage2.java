@@ -97,9 +97,9 @@ public class profilePage2 extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Object o) {
-
-
-            ll.addView(makeTextView("İletişim: "+email));
+            TextView emailText = (TextView) findViewById(R.id.email_trait);
+            emailText.setText("İletişim: "+email);
+            //ll.addView(makeTextView("İletişim: "+email));
             ll.addView(makeTextView("YETENEK LISTESI"));
             for (int i=0; i<skillsContainingArray.length(); i++)
             {
