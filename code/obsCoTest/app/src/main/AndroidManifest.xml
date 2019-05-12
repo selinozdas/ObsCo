@@ -16,10 +16,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".AboutUs"
-            android:label="@string/title_activity_about_us"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
             android:name=".ProfileActivity"
@@ -132,6 +128,13 @@
         <activity android:name=".Settings">
             <intent-filter>
                 <action android:name="android.intent.action.SETTINGS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".AboutUs">
+            <intent-filter>
+                <action android:name="android.intent.action.ABOUTUS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
