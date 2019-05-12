@@ -63,9 +63,7 @@ def get_skill_list():
 
 @app.route('/obsco/api/v1.0/recommender/<int:id>/<int:nu>/<skills>', methods=['GET'])
 def get_recommendation(id,nu,skills):
-    if skills == '_':
-        recommended = dbm.getGroups(id)
-        return jsonify({'recommendation': recommended})
+
     skill_list = skills.split('_')
     skill_list = [int(i) for i in skill_list]
     recommended = dbm.recommend(id,skill_list,nu)
@@ -77,7 +75,7 @@ def get_group_members(group)->list:
     return jsonify({'members': group_members})
 
 @app.route('/obsco/api/v1.0/addskill/<name>', methods=['GET'])
-def add_skill(name):
+def add_user(name):
     '''
     add skill into db with the given name
     '''
@@ -147,27 +145,32 @@ def get_hamdi():
 
 @app.route('/obsco/api/v1.0/21400541')
 def get_berk():
-    filename = 'berk.png'
+    filename = 'berk.jpg'
     return send_file(filename, mimetype='image')
 
 @app.route('/obsco/api/v1.0/21400539')
 def get_ceren():
-    filename = 'ceren.png'
+    filename = 'ceren.jpg'
     return send_file(filename, mimetype='image')
 
 @app.route('/obsco/api/v1.0/21400538')
 def get_dogan():
-    filename = 'dogan.png'
+    filename = 'dogan.jpg'
     return send_file(filename, mimetype='image')
 
 @app.route('/obsco/api/v1.0/21400540')
 def get_mahir():
-    filename = 'mahir.png'
+    filename = 'mahir.jpg'
     return send_file(filename, mimetype='image')
 
 @app.route('/obsco/api/v1.0/21400537')
 def get_selin():
-    filename = 'selin.png'
+    filename = 'selin.jpg'
+    return send_file(filename, mimetype='image')
+
+@app.route('/obsco/api/v1.0/21400517')
+def get_serhat():
+    filename = 'blank.jpg'
     return send_file(filename, mimetype='image')
 
 @app.route('/obsco/api/v1.0/voteskill/<int:voted>/<int:skill>/<int:vote>', methods=['GET'])
