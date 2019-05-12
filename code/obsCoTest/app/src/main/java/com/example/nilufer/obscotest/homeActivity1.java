@@ -348,6 +348,46 @@ Thread thread = new Thread(new Runnable() {
     }
 // MAHIR
 
+    public void InitializeAyarlarButton()
+    {
+        profilButton = (Button)findViewById(R.id.ayarlarbutton);
+
+        profilButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                //Open new page
+                Intent intent = new Intent("android.intent.action.SETTINGS");
+                intent.putExtra("ID_FROM_LOGIN", id);
+                intent.putExtra("NAME_FROM_LOGIN", name);
+                intent.putExtra("PASSWORD_FROM_LOGIN", password);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void InitializeCreditsButton()
+    {
+        profilButton = (Button)findViewById(R.id.hakkimizdabutton);
+
+        profilButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                //Open new page
+                Intent intent = new Intent("android.intent.action.ABOUTUS");
+                intent.putExtra("ID_FROM_LOGIN", id);
+                intent.putExtra("NAME_FROM_LOGIN", name);
+                intent.putExtra("PASSWORD_FROM_LOGIN", password);
+                startActivity(intent);
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

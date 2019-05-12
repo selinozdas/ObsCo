@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.368" />
 
     <Button
-        android:id="@+id/hatabildirbutton"
+        android:id="@+id/hakkimizdabutton"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="414dp"
         android:layout_height="64dp"
