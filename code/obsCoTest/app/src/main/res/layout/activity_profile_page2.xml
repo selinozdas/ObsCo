@@ -138,12 +138,12 @@
 
             android:layout_weight="1"
             android:src="@drawable/comicon"
-            app:layout_constraintBottom_toBottomOf="@id/traits_layout"
+            app:layout_constraintBottom_toBottomOf="@id/fullscreen_bot"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.946" />
 
     </android.support.constraint.ConstraintLayout>
 

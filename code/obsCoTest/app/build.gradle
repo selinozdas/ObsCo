@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        rele {
+            storeFile file('D:\\ssl.key')
+            storePassword 'obscotest'
+            keyAlias = 'tomcat'
+            keyPassword 'obscotest'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.nilufer.obscotest"
@@ -14,6 +22,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable = true
         }
     }
 }

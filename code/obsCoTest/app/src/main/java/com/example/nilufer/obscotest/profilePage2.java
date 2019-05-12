@@ -82,9 +82,9 @@ public class profilePage2 extends AppCompatActivity {
 
             try{
                 System.out.println("Testing 1 - Send Http GET request");
-                getReputation();
+                //getReputation();
                 sendGet();
-                //getUserData();
+                ////getUserData();
                 getSkillsResponse();
                 getGroupRelations();
 
@@ -97,10 +97,12 @@ public class profilePage2 extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Object o) {
+            System.out.println("SECOND USAAA ID:");
+            System.out.println(secondUserId);
             TextView emailText = (TextView) findViewById(R.id.email_trait);
             emailText.setText("İletişim: "+email);
             //ll.addView(makeTextView("İletişim: "+email));
-            ll.addView(makeTextView("YETENEK LISTESI"));
+            ll.addView(makeTextView("BECERiLER"));
             for (int i=0; i<skillsContainingArray.length(); i++)
             {
                 String skillName;

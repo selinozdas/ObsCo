@@ -78,7 +78,7 @@ public class profilePage1 extends AppCompatActivity {
 
             try{
                 System.out.println("Testing 1 - Send Http GET request");
-                getReputation();
+                //getReputation();
                 sendGet();
                 //getUserData();
                 getSkillsResponse();
