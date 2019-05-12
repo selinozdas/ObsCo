@@ -45,6 +45,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:text="Grup Oluştur"
+            android:textAllCaps="false"
             android:textSize="25dp"/>
         <Button
             android:id="@+id/button_main_menu"
@@ -56,6 +57,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:text="Ana Menü"
+            android:textAllCaps="false"
             android:textSize="25dp" />
     </RelativeLayout>
 

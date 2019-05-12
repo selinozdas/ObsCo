@@ -35,6 +35,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerHorizontal="true"
             android:text="Yeni Grup"
+            android:textAllCaps="false"
             android:textSize="30dp"/>
         <Button
             android:id="@+id/button_main_menu"
@@ -45,6 +46,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerHorizontal="true"
             android:text="Ana Menü"
+            android:textAllCaps="false"
             android:textSize="30dp" />
     </RelativeLayout>
 
