@@ -45,6 +45,7 @@ public class profilePage2 extends AppCompatActivity {
     String password;
     String title;
     Double skillLevel;
+    Double reputationValue;
     JSONArray skillsContainingArray;
     JSONArray relationsContainingArray;
     boolean isSuperuser;
@@ -82,8 +83,8 @@ public class profilePage2 extends AppCompatActivity {
 
             try{
                 System.out.println("Testing 1 - Send Http GET request");
-                //getReputation();
                 sendGet();
+                getReputation();
                 ////getUserData();
                 getSkillsResponse();
                 getGroupRelations();
@@ -339,10 +340,13 @@ public class profilePage2 extends AppCompatActivity {
         TextView titleText = (TextView) findViewById(R.id.first_trait);
 
         titleText.setText(title);
+
+        TextView reputationText = (TextView) findViewById(R.id.second_trait);
+        reputationText.setText(reputationValue.toString() + " \nDAVRANIŞ PUANI");
     }
 
     private void getGroupRelations() throws Exception {
-
+        System.out.println();
         String url = "http://obsco.me/obsco/api/v1.0/grouprelations/" + secondUserId + "/" +  groupID; //"http://127.0.0.1:5000/obsco/api/v1.0/users";
         //url = url + secondUserId;
         URL obj = new URL(url);
@@ -432,9 +436,8 @@ public class profilePage2 extends AppCompatActivity {
         System.out.println(response.toString());
 
         JSONObject reader = new JSONObject(response.toString());
-        Double reputationValue = reader.getDouble("reputation");
-        TextView reputationText = (TextView) findViewById(R.id.second_trait);
-        reputationText.setText(reputationValue.toString() + " \nDAVRANIŞ PUANI");
+        reputationValue = reader.getDouble("reputation");
+
 
 
     }
@@ -453,19 +456,19 @@ public class profilePage2 extends AppCompatActivity {
         return newLayout;
     }
 
-    public LinearLayout addSkillLayout(String s, int thisSkillId)
+    public LinearLayout addSkillLayout(String thisSkillName, int thisSkillId)
     {
         final LinearLayout newLayout = new LinearLayout(this);
         newLayout.setLayoutParams(new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         newLayout.setOrientation(LinearLayout.HORIZONTAL);
         //newLayout.setGravity(Gravity.);
         newLayout.addView( makeImageView1(R.drawable.ball3,125) );
-        newLayout.addView( makeTextView(s) );
+        newLayout.addView( makeTextView(thisSkillName) );
 
         final ImageView plusImage = makeImageView1(R.drawable.plus2, 200);
         newLayout.addView( plusImage );
         final int tempSkillId = thisSkillId;
-
+        final String tempSkillName = thisSkillName;
         plusImage.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -477,7 +480,9 @@ public class profilePage2 extends AppCompatActivity {
                 intent.putExtra("NAME_FROM_LOGIN", name);
                 intent.putExtra("PASSWORD_FROM_LOGIN", password);
                 intent.putExtra("SKILLID", tempSkillId);
+                intent.putExtra("SKILLNAME", tempSkillName);
                 intent.putExtra("secondUserID", secondUserId);
+                intent.putExtra("groupID", groupID);
                 startActivity(intent);
 
             }

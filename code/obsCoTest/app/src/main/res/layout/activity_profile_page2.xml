@@ -42,7 +42,7 @@
 
                 android:layout_weight="1"
                 android:src="@drawable/geributton1"
-                android:text="Cumali Kocovali"
+                android:text="LOADING..."
                 android:textColor="#FFFFFF" />
         </LinearLayout>
 

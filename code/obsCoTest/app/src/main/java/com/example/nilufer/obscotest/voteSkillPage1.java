@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -44,12 +45,14 @@ public class voteSkillPage1 extends AppCompatActivity {
     Double skillLevel;
     JSONArray skillsContainingArray;
     boolean isSuperuser;
+    String groupID;
 
     private ImageView voteButton;
     LinearLayout ll;
     int votedValue = 0;
     int votedSkillId = 0;
     String secondUserId;
+    String votedSkillName;
     private class ConnectionTest extends AsyncTask {
         @Override
         protected Object doInBackground(Object... arg0) {
@@ -67,12 +70,22 @@ public class voteSkillPage1 extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object o) {
             //Open new page
-
+/*
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("DELAY DONE");
+                    // Do something after 5s = 5000ms
+                }
+            }, 5000);
+            */
             Intent intent = new Intent("android.intent.action.SECONDPROFILEPAGE");
             intent.putExtra("ID_FROM_LOGIN", id);
             intent.putExtra("NAME_FROM_LOGIN", name);
             intent.putExtra("PASSWORD_FROM_LOGIN", password);
             intent.putExtra("secondUserID", secondUserId);
+            intent.putExtra("groupID", groupID);
             startActivity(intent);
 
             //Show the result obtained from doInBackground
@@ -259,7 +272,9 @@ public class voteSkillPage1 extends AppCompatActivity {
         name = getIntent().getStringExtra("NAME_FROM_LOGIN");
         password = getIntent().getStringExtra("PASSWORD_FROM_LOGIN");
         secondUserId = getIntent().getStringExtra("secondUserID");
+        groupID = getIntent().getStringExtra("groupID");
         votedSkillId = getIntent().getIntExtra("SKILLID",0);
+        votedSkillName = getIntent().getStringExtra("SKILLNAME");
         ll.addView(makeStarsLayout(0));
         InitializeVoteButton();
 

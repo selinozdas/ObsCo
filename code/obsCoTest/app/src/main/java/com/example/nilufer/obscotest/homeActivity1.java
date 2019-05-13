@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
 
 import org.json.JSONArray;
@@ -244,6 +245,7 @@ Thread thread = new Thread(new Runnable() {
         testNameView.setText(name); //set text for text view
     }
 
+/*
     public void InitializeTestButton() throws UnknownHostException, IOException
     {
 
@@ -281,14 +283,17 @@ Thread thread = new Thread(new Runnable() {
          while ((inputLine = in.readLine()) != null)
          System.out.println(inputLine);
          in.close();
-         */
-    }
+         **/
+    //}
 
     public void InitializeProfilButton() throws UnknownHostException, IOException
     {
 
         profilButton = (Button)findViewById(R.id.profilbutton);
-
+        ViewGroup.LayoutParams params = profilButton.getLayoutParams();
+        //params.width = (int) (params.width * getResources().getDisplayMetrics().widthPixels / 840);
+        params.height = (int) (params.height * getResources().getDisplayMetrics().heightPixels / 1450);
+        //params.width =
         profilButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -328,14 +333,17 @@ Thread thread = new Thread(new Runnable() {
     {
         profilButton = (Button)findViewById(R.id.gruplarimbutton);
 
+        ViewGroup.LayoutParams params = profilButton.getLayoutParams();
+        //params.width = (int) (params.width * getResources().getDisplayMetrics().widthPixels / 840);
+        params.height = (int) (params.height * getResources().getDisplayMetrics().heightPixels / 1450);
+        //params.width =
+        profilButton.setLayoutParams(params);
+
         profilButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-
-                String testString = "Berkin sayfası açıldı";
-                Toast.makeText(homeActivity1.this, testString, Toast.LENGTH_LONG).show();
 
                 //Open new page
                 Intent intent = new Intent("android.intent.action.GROUP");
@@ -348,10 +356,23 @@ Thread thread = new Thread(new Runnable() {
     }
 // MAHIR
 
+    public void scaleFromNexus5X(ViewGroup.LayoutParams params)
+    {
+
+    }
+
     public void InitializeAyarlarButton()
     {
         profilButton = (Button)findViewById(R.id.ayarlarbutton);
-
+        //profilButton.setWidth( (int) (profilButton.getWidth() * getResources().getDisplayMetrics().density) );
+        ViewGroup.LayoutParams params = profilButton.getLayoutParams();
+        params.width = (int) (params.width * getResources().getDisplayMetrics().widthPixels / 800);
+        params.height = (int) (params.height * getResources().getDisplayMetrics().heightPixels / 1450);
+        //params.width =
+        profilButton.setLayoutParams(params);
+        //profilButton.setLayoutParams();
+        System.out.println("MYMYMY:");
+        System.out.println(getResources().getDisplayMetrics().widthPixels);
         profilButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -371,7 +392,12 @@ Thread thread = new Thread(new Runnable() {
     public void InitializeCreditsButton()
     {
         profilButton = (Button)findViewById(R.id.hakkimizdabutton);
-
+        //profilButton.setWidth( (int) (profilButton.getWidth() * getResources().getDisplayMetrics().density) );
+        ViewGroup.LayoutParams params = profilButton.getLayoutParams();
+        params.width = (int) (params.width * getResources().getDisplayMetrics().widthPixels / 800);
+        params.height = (int) (params.height * getResources().getDisplayMetrics().heightPixels / 1450);
+        //params.width =
+        profilButton.setLayoutParams(params);
         profilButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -380,6 +406,31 @@ Thread thread = new Thread(new Runnable() {
 
                 //Open new page
                 Intent intent = new Intent("android.intent.action.ABOUTUS");
+                intent.putExtra("ID_FROM_LOGIN", id);
+                intent.putExtra("NAME_FROM_LOGIN", name);
+                intent.putExtra("PASSWORD_FROM_LOGIN", password);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void InitializeCikisButton()
+    {
+        profilButton = (Button)findViewById(R.id.cikisbutton);
+        profilButton.setWidth( (int) (profilButton.getWidth() * getResources().getDisplayMetrics().density) );
+        ViewGroup.LayoutParams params = profilButton.getLayoutParams();
+        params.width = (int) (params.width * getResources().getDisplayMetrics().widthPixels / 840);
+        params.height = (int) (params.height * getResources().getDisplayMetrics().heightPixels / 1450);
+        //params.width =
+        profilButton.setLayoutParams(params);
+        profilButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                //Open new page
+                Intent intent = new Intent("android.intent.action.MAIN");
                 intent.putExtra("ID_FROM_LOGIN", id);
                 intent.putExtra("NAME_FROM_LOGIN", name);
                 intent.putExtra("PASSWORD_FROM_LOGIN", password);
@@ -398,11 +449,14 @@ Thread thread = new Thread(new Runnable() {
         name = getIntent().getStringExtra("NAME_FROM_LOGIN");
         password = getIntent().getStringExtra("PASSWORD_FROM_LOGIN");
         setName();
+
+        /*
         try {
             InitializeTestButton();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
 
         try {
             InitializeProfilButton();
@@ -435,5 +489,6 @@ Thread thread = new Thread(new Runnable() {
         InitializeGruplarimButton();
         InitializeCreditsButton();
         InitializeAyarlarButton();
+        InitializeCikisButton();
     }
 }
