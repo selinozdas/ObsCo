@@ -11,6 +11,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.LayoutDirection;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -206,8 +207,11 @@ public class voteSkillPage1 extends AppCompatActivity {
         final LinearLayout newLayout = new LinearLayout(this);
         LinearLayout.LayoutParams newLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        newLayoutParams.gravity=Gravity.CENTER;
+
         newLayout.setLayoutParams(newLayoutParams);
         newLayout.setOrientation(LinearLayout.HORIZONTAL);
+        newLayout.setGravity(Gravity.CENTER);
         //newLayout.setGravity(Gravity.CENTER);
         for(int i=0; i<cnt; i++)
         {
@@ -229,6 +233,8 @@ public class voteSkillPage1 extends AppCompatActivity {
         newImage.setImageResource(resourceName);
         newImage.setLayoutParams(layoutParams);
         newImage.setId(imageId);
+        newImage.setBackgroundColor(Color.argb(255,16,16,16));
+        //newImage.setLayoutDirection(LayoutDirection.);
 
         newImage.setOnClickListener(new View.OnClickListener()
         {
@@ -277,6 +283,8 @@ public class voteSkillPage1 extends AppCompatActivity {
         votedSkillName = getIntent().getStringExtra("SKILLNAME");
         ll.addView(makeStarsLayout(0));
         InitializeVoteButton();
+        TextView myTextView = (TextView)findViewById(R.id.homeNameView);
+        myTextView.setText(votedSkillName + " becerisini oylayın.");
 
 
 

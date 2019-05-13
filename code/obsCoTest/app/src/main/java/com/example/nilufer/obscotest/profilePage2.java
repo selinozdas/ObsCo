@@ -465,7 +465,7 @@ public class profilePage2 extends AppCompatActivity {
         newLayout.addView( makeImageView1(R.drawable.ball3,125) );
         newLayout.addView( makeTextView(thisSkillName) );
 
-        final ImageView plusImage = makeImageView1(R.drawable.plus2, 200);
+        final ImageView plusImage = makeImageView1(R.drawable.plus1, 200);
         newLayout.addView( plusImage );
         final int tempSkillId = thisSkillId;
         final String tempSkillName = thisSkillName;

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#101010"
     tools:context=".voteSkillPage1">
 
     <android.support.constraint.ConstraintLayout
@@ -12,32 +13,31 @@
 
         <TextView
             android:id="@+id/homeNameView"
-            android:layout_width="167dp"
-            android:layout_height="74dp"
+            android:layout_width="332dp"
+            android:layout_height="90dp"
 
             android:text="Abdullah Mahir Özer"
             android:textColor="#707070"
             android:textSize="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.45" />
+            app:layout_constraintVertical_bias="0.24" />
 
         <ImageButton
             android:id="@+id/add_vote"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="138dp"
-            android:layout_height="123dp"
+            android:layout_width="311dp"
+            android:layout_height="343dp"
 
             android:layout_weight="1"
-            android:src="@drawable/blackbuttonhi100"
+            android:src="@drawable/confirmbutton1"
 
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/homeNameView"
-            app:layout_constraintVertical_bias="1.5" />
+            app:layout_constraintTop_toBottomOf="@id/homeNameView" />
 
         <LinearLayout
 
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top|center_horizontal"
-            android:background="#FFFFFF"
+            android:background="#101010"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/add_vote"
             tools:ignore="UselessParent"
