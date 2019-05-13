@@ -5,11 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.LayoutDirection;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,12 +46,14 @@ public class voteSkillPage1 extends AppCompatActivity {
     Double skillLevel;
     JSONArray skillsContainingArray;
     boolean isSuperuser;
+    String groupID;
 
     private ImageView voteButton;
     LinearLayout ll;
     int votedValue = 0;
     int votedSkillId = 0;
     String secondUserId;
+    String votedSkillName;
     private class ConnectionTest extends AsyncTask {
         @Override
         protected Object doInBackground(Object... arg0) {
@@ -67,12 +71,22 @@ public class voteSkillPage1 extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object o) {
             //Open new page
-
+/*
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("DELAY DONE");
+                    // Do something after 5s = 5000ms
+                }
+            }, 5000);
+            */
             Intent intent = new Intent("android.intent.action.SECONDPROFILEPAGE");
             intent.putExtra("ID_FROM_LOGIN", id);
             intent.putExtra("NAME_FROM_LOGIN", name);
             intent.putExtra("PASSWORD_FROM_LOGIN", password);
             intent.putExtra("secondUserID", secondUserId);
+            intent.putExtra("groupID", groupID);
             startActivity(intent);
 
             //Show the result obtained from doInBackground
@@ -193,16 +207,19 @@ public class voteSkillPage1 extends AppCompatActivity {
         final LinearLayout newLayout = new LinearLayout(this);
         LinearLayout.LayoutParams newLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        newLayoutParams.gravity=Gravity.CENTER;
+
         newLayout.setLayoutParams(newLayoutParams);
         newLayout.setOrientation(LinearLayout.HORIZONTAL);
+        newLayout.setGravity(Gravity.CENTER);
         //newLayout.setGravity(Gravity.CENTER);
         for(int i=0; i<cnt; i++)
         {
-            newLayout.addView( makeImageView1(R.drawable.star40blue,100, i) );
+            newLayout.addView( makeImageView1(R.drawable.star40blue,60, i) );
         }
         for(int i=cnt; i<10; i++)
         {
-            newLayout.addView( makeImageView1(R.drawable.star40gray,100, i) );
+            newLayout.addView( makeImageView1(R.drawable.star40gray,60, i) );
         }
         //newLayout.addView( makeTextView("   " + skillLevel.toString()) );
         return newLayout;
@@ -216,6 +233,8 @@ public class voteSkillPage1 extends AppCompatActivity {
         newImage.setImageResource(resourceName);
         newImage.setLayoutParams(layoutParams);
         newImage.setId(imageId);
+        newImage.setBackgroundColor(Color.argb(255,16,16,16));
+        //newImage.setLayoutDirection(LayoutDirection.);
 
         newImage.setOnClickListener(new View.OnClickListener()
         {
@@ -259,9 +278,13 @@ public class voteSkillPage1 extends AppCompatActivity {
         name = getIntent().getStringExtra("NAME_FROM_LOGIN");
         password = getIntent().getStringExtra("PASSWORD_FROM_LOGIN");
         secondUserId = getIntent().getStringExtra("secondUserID");
+        groupID = getIntent().getStringExtra("groupID");
         votedSkillId = getIntent().getIntExtra("SKILLID",0);
+        votedSkillName = getIntent().getStringExtra("SKILLNAME");
         ll.addView(makeStarsLayout(0));
         InitializeVoteButton();
+        TextView myTextView = (TextView)findViewById(R.id.homeNameView);
+        myTextView.setText(votedSkillName + " becerisini oylayın.");
 
 
 

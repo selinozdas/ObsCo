@@ -33,25 +33,27 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
-
-
 public class profilePage1 extends AppCompatActivity {
     // MAHIR
     String idFromGroupPage;
     String groupIdFromGroupPage;
     String age;
     String email;
+    //String id;
     String id;
-    String secondUserId;
     String name;
     String password;
     String title;
     Double skillLevel;
+    Double reputationValue;
     JSONArray skillsContainingArray;
+    JSONArray relationsContainingArray;
     boolean isSuperuser;
 
+    String groupID;
     private ImageView addCommentButton;
     LinearLayout ll;
+
     ImageView bmImage;
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
@@ -67,8 +69,11 @@ public class profilePage1 extends AppCompatActivity {
             }
             return bmp;
         }
-        protected void onPostExecute(Bitmap result) {
+        protected void onPostExecute(Bitmap result)
+        {
             bmImage.setImageBitmap(result);
+
+            makeProfilePicCircular(result);
         }
     }
 
@@ -78,9 +83,10 @@ public class profilePage1 extends AppCompatActivity {
 
             try{
                 System.out.println("Testing 1 - Send Http GET request");
-                getReputation();
+
                 sendGet();
-                //getUserData();
+                getReputation();
+                ////getUserData();
                 getSkillsResponse();
 
             } catch (Exception e) {
@@ -92,9 +98,15 @@ public class profilePage1 extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Object o) {
+            System.out.println("SECOND USAAA ID:");
+            System.out.println(id);
+            TextView emailText = (TextView) findViewById(R.id.email_trait);
+            emailText.setText("İletişim: "+email);
+            //ll.addView(makeTextView("İletişim: "+email));
+            ll.addView(makeTextView("BECERiLER"));
+            System.out.println("TEST ME PLZ");
+            System.out.println(skillsContainingArray.length());
 
-
-            ll.addView(makeTextView("İletişim: "+email));
             for (int i=0; i<skillsContainingArray.length(); i++)
             {
                 String skillName;
@@ -108,36 +120,38 @@ public class profilePage1 extends AppCompatActivity {
                     ll.addView( addSkillLayout( skillName, skillId ) );//THIS HAS TO BE ONLY SKILL NAME NOW // + "\n " + skillLevel) );
                     ll.addView( makeStarsLayout() );
 
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             }
+
+
             //addUserTraits();
             //Show the result obtained from doInBackground
-        }
+            setNameAndTitle();
+        }//ON POST EXECUTE
 
     }
 
-
-
     private void sendGet() throws Exception {
         String url = "http://obsco.me/obsco/api/v1.0/users/" + id;
-        System.out.println("DEBUG POINT 1: ");
+        System.out.println("SENDGET 1: ");
         //String url = "http://obsco.me/obsco/api/v1.0/users/12345671"; //"http://127.0.0.1:5000/obsco/api/v1.0/users";
 
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        System.out.println("DEBUG POINT 2: ");
+        System.out.println("SENDGET 2: ");
         // optional default is GET
         con.setRequestMethod("GET");
-        System.out.println("DEBUG POINT 3: ");
+        System.out.println("SENDGET 3: ");
         //add request header
         //con.setRequestProperty("User-Agent",);
         con.setRequestProperty("User-Agent", "Mozilla/5.0");
 
         int responseCode = con.getResponseCode();
-        System.out.println("DEBUG POINT 4: ");
+        System.out.println("SENDGET 4: ");
         System.out.println("\nSending 'GET' request to URL : " + url);
         System.out.println("Response Code : " + responseCode);
 
@@ -156,29 +170,29 @@ public class profilePage1 extends AppCompatActivity {
 
         JSONObject reader = new JSONObject(response.toString());
 
-        System.out.println("DEBUG POINT 5:");
+        System.out.println("SENDGET 5:");
         JSONArray allContainingArray = reader.getJSONArray("users");
         JSONObject userJSON  = (JSONObject)allContainingArray.get(0);// reader.getJSONObject("users");
 
         //UGETJSON ARR
 
         id = userJSON.getString("id");
-        System.out.println("DEBUG POINT 6:" + id);
+        System.out.println("SENDGET 6:" + id);
         name = userJSON.getString("name");
         email = userJSON.getString("email");
-
-        TextView nameText = (TextView) findViewById(R.id.personnel_name);
-        nameText.setText(name);
-
-        TextView titleText = (TextView) findViewById(R.id.first_trait);
         title = userJSON.getString("title");
-        titleText.setText(title);
 
 
+
+        System.out.println("SENDGET 7:");
+
+
+
+        System.out.println("SENDGET 8:");
     }
 
     private void getSkillsResponse() throws Exception {
-
+        System.out.println("MEMEMERESPONSE-2: ");
         System.out.println("DEBUG POINT 1: ");
         //String url = "http://obsco.me/obsco/api/v1.0/skills/addskill/dogancan"; //"http://127.0.0.1:5000/obsco/api/v1.0/users";
         //String url = "http://obsco.me/obsco/api/v1.0/addskill/androiddev";
@@ -204,14 +218,14 @@ public class profilePage1 extends AppCompatActivity {
                 new InputStreamReader(con.getInputStream()));
         String inputLine;
         StringBuffer response = new StringBuffer();
-
+        System.out.println("MEMEMERESPONSE-1: ");
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
         }
         in.close();
 
         //print result
-        System.out.println("RESPONSE: ");
+        System.out.println("MEMEMERESPONSE: ");
         System.out.println(response.toString());
 
         JSONObject reader = new JSONObject(response.toString());
@@ -227,7 +241,6 @@ public class profilePage1 extends AppCompatActivity {
         //System.out.println("LENGTHXD: ");
         //System.out.println(skillsArray.length());
     }
-
 
     private void getUserData() throws Exception {
 
@@ -280,9 +293,17 @@ public class profilePage1 extends AppCompatActivity {
 
     }
 
-    private void setNameAndEmail()
+    private void setNameAndTitle()
     {
+        TextView nameText = (TextView) findViewById(R.id.personnel_name);
+        nameText.setText(name);
 
+        TextView titleText = (TextView) findViewById(R.id.first_trait);
+
+        titleText.setText(title);
+
+        TextView reputationText = (TextView) findViewById(R.id.second_trait);
+        reputationText.setText(reputationValue.toString() + " \nDAVRANIŞ PUANI");
     }
 
     private void getReputation() throws Exception {
@@ -320,11 +341,24 @@ public class profilePage1 extends AppCompatActivity {
         System.out.println(response.toString());
 
         JSONObject reader = new JSONObject(response.toString());
-        Double reputationValue = reader.getDouble("reputation");
-        TextView reputationText = (TextView) findViewById(R.id.second_trait);
-        reputationText.setText(reputationValue.toString() + " \nDAVRANIŞ PUANI");
+        reputationValue = reader.getDouble("reputation");
 
 
+
+    }
+
+    public LinearLayout addRelationLayout(String s, Double score)
+    {
+        final LinearLayout newLayout = new LinearLayout(this);
+        newLayout.setLayoutParams(new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        newLayout.setOrientation(LinearLayout.HORIZONTAL);
+        //newLayout.setGravity(Gravity.);
+        newLayout.addView( makeImageView1(R.drawable.ball3,125) );
+        newLayout.addView( makeTextView(s + " " + score) );
+
+
+        //newLayout.addView( makeTextView("! ! ! ! ! ! ! ! ! !"));
+        return newLayout;
     }
 
     public LinearLayout addSkillLayout(String s, int thisSkillId)
@@ -336,7 +370,7 @@ public class profilePage1 extends AppCompatActivity {
         newLayout.addView( makeImageView1(R.drawable.ball3,125) );
         newLayout.addView( makeTextView(s) );
 
-/*        final ImageView plusImage = makeImageView1(R.drawable.plus2, 200);
+        final ImageView plusImage = makeImageView1(R.drawable.plus2, 200);
         newLayout.addView( plusImage );
         final int tempSkillId = thisSkillId;
 
@@ -351,12 +385,12 @@ public class profilePage1 extends AppCompatActivity {
                 intent.putExtra("NAME_FROM_LOGIN", name);
                 intent.putExtra("PASSWORD_FROM_LOGIN", password);
                 intent.putExtra("SKILLID", tempSkillId);
-                //intent.putExtra("secondUserID", secondUserId);
+                intent.putExtra("iD", id);
                 startActivity(intent);
 
             }
         });
-*/
+
         //newLayout.addView( makeTextView("! ! ! ! ! ! ! ! ! !"));
         return newLayout;
     }
@@ -397,23 +431,27 @@ public class profilePage1 extends AppCompatActivity {
         nameTextView.setTextAppearance(this, R.style.Widget_AppCompat_Button_Borderless);
         nameTextView.setGravity(Gravity.CENTER);
         nameTextView.setMinimumHeight(175);
+
+        nameTextView.setBackgroundColor(Color.argb(255,32,32,32));
+        nameTextView.setTextColor(Color.argb(255,255,255,255));
         //nameTextView.setLayoutParams(new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         return nameTextView;
     }
 
 
 
-    public void makeProfilePicCircular()
+    public void makeProfilePicCircular(Bitmap profileBitmap)
     {
         ImageView profilePic=(ImageView)findViewById(R.id.profile_pic);
 
 //get bitmap of the image
-        Bitmap imageBitmap= BitmapFactory.decodeResource(getResources(),  R.drawable.bertcase);
+        //Bitmap imageBitmap= BitmapFactory.decodeResource(getResources(),  R.drawable.bertcase);
+        Bitmap imageBitmap = profileBitmap;
         RoundedBitmapDrawable roundedBitmapDrawable= RoundedBitmapDrawableFactory.create(getResources(), imageBitmap);
 
 //setting radius
-        //roundedBitmapDrawable.setCornerRadius(50.0f);
-        roundedBitmapDrawable.setCircular(true);
+        roundedBitmapDrawable.setCornerRadius(500.0f);
+        //roundedBitmapDrawable.setCircular(true);
         roundedBitmapDrawable.setAntiAlias(true);
         profilePic.setImageDrawable(roundedBitmapDrawable);
     }
@@ -433,18 +471,23 @@ public class profilePage1 extends AppCompatActivity {
         id = getIntent().getStringExtra("ID_FROM_LOGIN");
         name = getIntent().getStringExtra("NAME_FROM_LOGIN");
         password = getIntent().getStringExtra("PASSWORD_FROM_LOGIN");
-        //secondUserId = getIntent().getStringExtra("secondUserID");
+        //secondUserId = getIntent().getStringExtra("iD");
+        groupID = getIntent().getStringExtra("groupID");
 
-        makeProfilePicCircular();
-
+        System.out.println("BELLI OLMAZ:");
+        System.out.println(id);
+        //makeProfilePicCircular();
+        //InitializeCommentButton();
         new ConnectionTest().execute("");
 
+        System.out.println("HEY HO LETS GO");
+        //addUserTraits();
 
         bmImage = findViewById(R.id.profile_pic);
 
 
-            new DownloadImageTask().execute("http://obsco.me/obsco/api/v1.0/" + id);
+        new DownloadImageTask().execute("http://obsco.me/obsco/api/v1.0/" + id);
 
-        //addUserTraits();
+
     }
 }

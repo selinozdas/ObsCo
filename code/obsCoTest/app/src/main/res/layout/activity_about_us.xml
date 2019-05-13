@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#202020"
+    tools:context=".AboutUs">
+
+    <TextView
+        android:id="@+id/Selin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Selin Özdaş"
+        android:textSize="50dp"
+        android:textColor="#ffffff"/>
+    <TextView
+        android:id="@+id/Ceren"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Ceren Uysal"
+        android:textSize="50dp"
+        android:textColor="#ffffff"/>
+    <TextView
+        android:id="@+id/Doğan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Doğan Can Eren"
+        android:textSize="50dp"
+        android:textColor="#ffffff"/>
+    <TextView
+        android:id="@+id/Mahir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="A. Mahir Özer"
+        android:textSize="50dp"
+        android:textColor="#ffffff"/>
+    <TextView
+        android:id="@+id/Berk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Berk Erzin"
+        android:textSize="50dp"
+        android:textColor="#ffffff"/>
+</LinearLayout>
