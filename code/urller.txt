@@ -1,0 +1,19 @@
+/users/12345671 returns user info eith given id
+/groups/3 returns group members of given group id with all fields
+/skills/21400537 skilleri donduruyor
+/cansee/12345671/3 returns 1 if user is a leader of the given group 1
+/groupname/3 returns  name of the given group id
+/skillist/ returns all of the skills in the system
+/recommender/3/2/1_9_14 recommends 2 users of group 3 who is best at skills 1,9,14
+/groupmembers/3 only returns the name and id of the members of the groups
+/addskill/Human_Relations creates a skill called human relations
+/reputation/12345671 returns overall reputation  of the user
+/groupreputation/12345671/1 returns the reputation of the user inside the group
+/sentiment/12345671/21400537/kotu_kod_yaziyor 12345671 21400537 hakkinda sentiment entrysi giriyor
+/eligiblemembers/12345671 userin grup yaratma erisiminin oldugu kisileri donduruyor
+/creategroup/Grup_Vitamin/12345671/21400537_21400528_21400539 12345671 tarafindan Grup Vitamin adinda sondaki idlere sahip uyelerden grup olusturma
+/addleader/12345671/1/21400537_21400538 eger 12345671in yetkisi varsa 1 gruba sondaki kisileri leader olarak ekleyebiliyor
+/changepassword/12345671/naber0mudur1 adi ustunde 12345671in passwordunu degistiriyor
+/12345671 profil fotosu cekmek icin
+/voteskill/21400537/4/3 21400537 idli kisinin 4 idli skilline 3 puan ver
+/votesre update all users reputation(sizin kullanacaginiz bir fonksiyon degil)
